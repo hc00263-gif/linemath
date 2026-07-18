@@ -1,0 +1,29 @@
+[
+  {
+    "id": "placeholder-book-a",
+    "sportsbook": "Sportsbook A",
+    "headline": "Bet $5, Get $150 in Bonus Bets",
+    "blurb": "New customers only. Placeholder offer — swap in a real tracked affiliate link before launch.",
+    "ctaLabel": "Claim Offer",
+    "ctaUrl": "https://example.com/placeholder-offer-a",
+    "categories": ["general", "parlay", "odds-converter", "single-bet"]
+  },
+  {
+    "id": "placeholder-book-b",
+    "sportsbook": "Sportsbook B",
+    "headline": "First Bet Reset up to $250",
+    "blurb": "New customers only. Placeholder offer — swap in a real tracked affiliate link before launch.",
+    "ctaLabel": "Claim Offer",
+    "ctaUrl": "https://example.com/placeholder-offer-b",
+    "categories": ["general", "hedge", "bonus-bet"]
+  },
+  {
+    "id": "placeholder-book-c",
+    "sportsbook": "Sportsbook C",
+    "headline": "Bet $10, Get $200 Instantly",
+    "blurb": "New customers only. Placeholder offer — swap in a real tracked affiliate link before launch.",
+    "ctaLabel": "Claim Offer",
+    "ctaUrl": "https://example.com/placeholder-offer-c",
+    "categories": ["general", "odds-converter", "bonus-bet"]
+  }
+]
