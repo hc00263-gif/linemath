@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CALCULATORS } from "@/lib/calculators";
+import { SPORTS_TOOLS } from "@/lib/sportsTools";
 
 export const metadata: Metadata = {
   title: "Free Sports Betting Calculators — American Odds Native",
@@ -33,6 +34,26 @@ export default function Home() {
             <span className="text-sm text-black/60 dark:text-white/60">{calc.description}</span>
           </Link>
         ))}
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <h2 className="text-xl font-semibold tracking-tight">Sports data</h2>
+        <p className="max-w-xl text-sm text-black/60 dark:text-white/60">
+          Schedules, matches, and player lookup across NBA, NFL, NHL, MLB, and the four tennis
+          majors — to go with your betting math.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {SPORTS_TOOLS.map((tool) => (
+            <Link
+              key={tool.slug}
+              href={`/${tool.slug}`}
+              className="flex flex-col gap-1.5 rounded-xl border border-black/10 p-5 transition-colors hover:border-black/30 dark:border-white/15 dark:hover:border-white/40"
+            >
+              <span className="text-lg font-semibold">{tool.shortTitle}</span>
+              <span className="text-sm text-black/60 dark:text-white/60">{tool.description}</span>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

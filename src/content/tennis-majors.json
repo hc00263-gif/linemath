@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ao-2026",
+    "name": "Australian Open",
+    "tour": "Both",
+    "startDate": "2026-01-18",
+    "endDate": "2026-02-01",
+    "location": "Melbourne, Australia"
+  },
+  {
+    "id": "fo-2026",
+    "name": "French Open",
+    "tour": "Both",
+    "startDate": "2026-05-24",
+    "endDate": "2026-06-07",
+    "location": "Paris, France"
+  },
+  {
+    "id": "wimbledon-2026",
+    "name": "Wimbledon",
+    "tour": "Both",
+    "startDate": "2026-06-29",
+    "endDate": "2026-07-12",
+    "location": "London, England"
+  },
+  {
+    "id": "uso-2026",
+    "name": "US Open",
+    "tour": "Both",
+    "startDate": "2026-08-30",
+    "endDate": "2026-09-13",
+    "location": "New York, USA"
+  },
+  {
+    "id": "ao-2027",
+    "name": "Australian Open",
+    "tour": "Both",
+    "startDate": "2027-01-11",
+    "endDate": "2027-01-31",
+    "location": "Melbourne, Australia"
+  }
+]
