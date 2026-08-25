@@ -37,6 +37,18 @@ export const CALCULATORS: CalculatorMeta[] = [
     shortTitle: "Bonus Bet Calculator",
     description: "Convert a bonus or free bet into guaranteed cash — stake isn't returned.",
   },
+  {
+    slug: "fantasy-points-calculator",
+    title: "Fantasy Football Points Calculator — Standard, Half-PPR & PPR",
+    shortTitle: "Fantasy Points Calculator",
+    description: "Enter a stat line and see fantasy points across Standard, Half-PPR, and PPR scoring.",
+  },
+  {
+    slug: "draft-pick-calculator",
+    title: "Fantasy Draft Pick Calculator — Snake Draft Order",
+    shortTitle: "Draft Pick Calculator",
+    description: "See exactly which overall picks you get in a snake draft, with optional 3RR.",
+  },
 ];
 
 export function getCalculator(slug: string): CalculatorMeta | undefined {
