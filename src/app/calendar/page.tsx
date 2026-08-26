@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getSportsProvider, TEAM_SPORTS } from "@/lib/sports";
+import { getSportsProvider, TEAM_SPORTS, usingMockGames } from "@/lib/sports";
 import { getUpcomingTennisMajors } from "@/lib/sports/tennisMajors";
 import { CalendarView } from "@/components/sports/CalendarView";
 import { DemoDataBanner } from "@/components/sports/DemoDataBanner";
@@ -25,7 +25,7 @@ export default async function CalendarPage() {
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-8">
       <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{meta.title}</h1>
-      <DemoDataBanner />
+      <DemoDataBanner show={usingMockGames()} />
       <Suspense fallback={<div className="h-96 animate-pulse rounded-xl bg-black/[.03] dark:bg-white/[.04]" />}>
         <CalendarView games={games} tennisMajors={tennisMajors} />
       </Suspense>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getSportsProvider } from "@/lib/sports";
+import { getSportsProvider, usingMockPlayers } from "@/lib/sports";
 import { TeamSportId } from "@/lib/sports/types";
 import { SPORT_LABELS, TEAM_SPORTS } from "@/lib/sports/provider";
 import { DemoDataBanner } from "@/components/sports/DemoDataBanner";
@@ -38,7 +38,7 @@ export default async function PlayerDetailPage({ params }: { params: Promise<Par
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-8">
-      <DemoDataBanner />
+      <DemoDataBanner show={usingMockPlayers(sport)} />
       <div className="flex flex-col gap-2">
         <span className="text-xs font-medium uppercase tracking-wide text-black/40 dark:text-white/40">
           {SPORT_LABELS[sport]}

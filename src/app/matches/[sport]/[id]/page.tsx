@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getSportsProvider } from "@/lib/sports";
+import { getSportsProvider, usingMockGames } from "@/lib/sports";
 import { TeamSportId } from "@/lib/sports/types";
 import { SPORT_LABELS, TEAM_SPORTS } from "@/lib/sports/provider";
 import { formatGameTime } from "@/lib/sports/format";
@@ -40,7 +40,7 @@ export default async function MatchDetailPage({ params }: { params: Promise<Para
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-8">
-      <DemoDataBanner />
+      <DemoDataBanner show={usingMockGames()} />
       <div className="flex flex-col gap-2">
         <span className="text-xs font-medium uppercase tracking-wide text-black/40 dark:text-white/40">
           {game.league}
