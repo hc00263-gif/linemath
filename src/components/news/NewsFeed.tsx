@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 import { NewsItem, NewsSportId, NEWS_SPORT_LABELS } from "@/lib/news/types";
 
 function timeAgo(iso: string): string {
-  const diffMs = Date.now() - Date.parse(iso);
+  const parsed = Date.parse(iso);
+  if (Number.isNaN(parsed)) return "";
+  const diffMs = Date.now() - parsed;
   const minutes = Math.round(diffMs / 60_000);
   if (minutes < 1) return "just now";
   if (minutes < 60) return `${minutes}m ago`;
