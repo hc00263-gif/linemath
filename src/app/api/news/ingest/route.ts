@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { fetchAllSources } from "@/lib/news/rss";
 import { filterUnseen, isStoreConfigured, saveItems } from "@/lib/news/store";
 import { classifyItems } from "@/lib/news/classify";
+import { notifyMajorItems } from "@/lib/news/push";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -31,6 +32,13 @@ export async function POST(request: NextRequest) {
     const unseen = await filterUnseen(fetched);
     const classified = await classifyItems(unseen);
     await saveItems(classified);
+
+    try {
+      await notifyMajorItems(classified);
+    } catch (err) {
+      // Push failures shouldn't fail the whole ingest run — the items are already saved.
+      console.error(`[news] push notification step failed: ${err instanceof Error ? err.message : String(err)}`);
+    }
 
     return NextResponse.json({
       ok: true,

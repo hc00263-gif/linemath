@@ -3,6 +3,7 @@ import { getSportsTool } from "@/lib/sportsTools";
 import { getRecentItems } from "@/lib/news/store";
 import { isStoreConfigured } from "@/lib/news/store";
 import { NewsFeed } from "@/components/news/NewsFeed";
+import { PushSubscribeButton } from "@/components/news/PushSubscribeButton";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,9 @@ export default async function NewsPage() {
       <div className="flex flex-col gap-2">
         <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">{meta.title}</h1>
         <p className="text-sm text-ink-dim">{meta.description}</p>
+        <div>
+          <PushSubscribeButton />
+        </div>
       </div>
 
       {!configured ? (
