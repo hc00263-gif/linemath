@@ -95,7 +95,7 @@ export function ParlayCalculator() {
                 placeholder={leg.push ? "Pushed — no action" : undefined}
               />
             </div>
-            <label className="mb-2.5 flex items-center gap-1.5 text-xs text-black/60 dark:text-white/60">
+            <label className="mb-2.5 flex items-center gap-1.5 text-xs text-ink-dim">
               <input
                 type="checkbox"
                 checked={leg.push}
@@ -108,7 +108,7 @@ export function ParlayCalculator() {
               onClick={() => removeLeg(leg.id)}
               disabled={legs.length <= MIN_LEGS}
               aria-label={`Remove leg ${index + 1}`}
-              className="mb-2.5 text-xs text-black/40 hover:text-red-500 disabled:opacity-30 disabled:hover:text-black/40 dark:text-white/40"
+              className="mb-2.5 text-xs text-ink-dim hover:text-negative disabled:opacity-30 disabled:hover:text-ink-dim"
             >
               Remove
             </button>
@@ -120,7 +120,7 @@ export function ParlayCalculator() {
         type="button"
         onClick={addLeg}
         disabled={legs.length >= MAX_LEGS}
-        className="self-start rounded-lg border border-black/15 px-3 py-1.5 text-sm font-medium disabled:opacity-40 dark:border-white/20"
+        className="self-start rounded-lg border border-line px-3 py-1.5 text-sm font-medium text-ink transition-colors hover:border-accent/50 disabled:opacity-40"
       >
         + Add leg ({legs.length}/{MAX_LEGS})
       </button>
@@ -134,7 +134,12 @@ export function ParlayCalculator() {
         <ResultCard
           primary={{ label: "Payout", value: result ? formatCurrency(result.payout) : "—" }}
           rows={[
-            { label: "Profit", value: result ? formatCurrency(result.profit) : "—", emphasis: true },
+            {
+              label: "Profit",
+              value: result ? formatCurrency(result.profit) : "—",
+              emphasis: true,
+              tone: "positive",
+            },
             {
               label: "Parlay Odds",
               value: result?.odds ? formatAmerican(result.odds.american) : "—",

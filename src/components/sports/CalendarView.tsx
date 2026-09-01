@@ -43,7 +43,7 @@ export function CalendarView({ games, tennisMajors }: { games: Game[]; tennisMaj
         {filteredGames.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
-        {isEmpty && <p className="text-sm text-black/50 dark:text-white/50">No upcoming events found.</p>}
+        {isEmpty && <p className="text-sm text-ink-dim">No upcoming events found.</p>}
       </div>
     </div>
   );

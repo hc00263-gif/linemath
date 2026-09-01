@@ -42,17 +42,17 @@ export default async function MatchDetailPage({ params }: { params: Promise<Para
     <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-8">
       <DemoDataBanner show={usingMockGames()} />
       <div className="flex flex-col gap-2">
-        <span className="text-xs font-medium uppercase tracking-wide text-black/40 dark:text-white/40">
+        <span className="font-mono text-xs font-medium uppercase tracking-wide text-ink-dim">
           {game.league}
         </span>
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+        <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
           {game.awayTeam.name} @ {game.homeTeam.name}
         </h1>
-        <p className="text-black/60 dark:text-white/60">{formatGameTime(game.startTime)}</p>
+        <p className="text-ink-dim">{formatGameTime(game.startTime)}</p>
       </div>
 
       {hasScore && (
-        <div className="rounded-xl border border-black/10 p-5 dark:border-white/15">
+        <div className="rounded-xl border border-line bg-surface p-5">
           <div className="flex items-center justify-between text-lg font-semibold tabular-nums">
             <span>{game.awayTeam.name}</span>
             <span>{game.awayScore}</span>
@@ -66,7 +66,7 @@ export default async function MatchDetailPage({ params }: { params: Promise<Para
 
       <Link
         href="/betting-odds-calculator"
-        className="self-start rounded-lg border border-black/15 px-4 py-2 text-sm font-medium transition-colors hover:border-black/30 dark:border-white/20 dark:hover:border-white/40"
+        className="self-start rounded-lg border border-line px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-accent/50"
       >
         Calculate odds for this game →
       </Link>

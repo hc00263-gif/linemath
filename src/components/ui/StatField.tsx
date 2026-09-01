@@ -16,7 +16,7 @@ export function StatField({ label, value, onChange, id }: StatFieldProps) {
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={inputId} className="text-xs font-medium text-black/60 dark:text-white/60">
+      <label htmlFor={inputId} className="text-xs font-medium text-ink-dim">
         {label}
       </label>
       <input
@@ -27,7 +27,7 @@ export function StatField({ label, value, onChange, id }: StatFieldProps) {
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="0"
-        className="rounded-lg border border-black/15 bg-transparent px-3 py-2 text-sm tabular-nums outline-none transition-colors focus:border-black/40 focus:ring-2 focus:ring-black/10 dark:border-white/20 dark:focus:border-white/50 dark:focus:ring-white/10"
+        className="rounded-lg border border-line bg-surface px-3 py-2 font-mono text-sm tabular-nums text-ink outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
       />
     </div>
   );

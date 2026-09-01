@@ -1,6 +1,6 @@
 export function RGFooter() {
   return (
-    <footer className="border-t border-black/10 px-4 py-6 text-xs text-black/50 dark:border-white/15 dark:text-white/50">
+    <footer className="border-t border-line px-4 py-6 text-xs text-ink-dim">
       <div className="mx-auto flex max-w-4xl flex-col gap-2">
         <p>
           21+. Gambling problem? Call{" "}

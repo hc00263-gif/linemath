@@ -45,7 +45,12 @@ export function SingleBetCalculator() {
       <ResultCard
         primary={{ label: "Payout", value: payout !== null ? formatCurrency(payout) : "—" }}
         rows={[
-          { label: "Profit", value: profit !== null ? formatCurrency(profit) : "—", emphasis: true },
+          {
+            label: "Profit",
+            value: profit !== null ? formatCurrency(profit) : "—",
+            emphasis: true,
+            tone: "positive",
+          },
           { label: "Implied Probability", value: odds ? formatImplied(odds.implied) : "—" },
         ]}
       />

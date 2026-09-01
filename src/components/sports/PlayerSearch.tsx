@@ -64,15 +64,15 @@ export function PlayerSearch() {
         value={query}
         onChange={(event) => setQuery(event.target.value)}
         placeholder="Search players by name… (3+ letters)"
-        className="rounded-lg border border-black/15 bg-transparent px-3 py-2 text-base outline-none transition-colors focus:border-black/40 focus:ring-2 focus:ring-black/10 dark:border-white/20 dark:focus:border-white/50 dark:focus:ring-white/10"
+        className="rounded-lg border border-line bg-surface px-3 py-2 text-base text-ink outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
       />
       <div className="flex flex-col gap-3">
-        {isPending && <p className="text-sm text-black/50 dark:text-white/50">Searching…</p>}
+        {isPending && <p className="text-sm text-ink-dim">Searching…</p>}
         {!isPending && queryTooShort && (
-          <p className="text-sm text-black/50 dark:text-white/50">Type at least 3 letters to search.</p>
+          <p className="text-sm text-ink-dim">Type at least 3 letters to search.</p>
         )}
         {!isPending && !queryTooShort && visibleResults.length === 0 && (
-          <p className="text-sm text-black/50 dark:text-white/50">No players found.</p>
+          <p className="text-sm text-ink-dim">No players found.</p>
         )}
         {visibleResults.map((player) => (
           <PlayerCard key={player.id} player={player} />

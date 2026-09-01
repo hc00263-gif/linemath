@@ -5,7 +5,7 @@ import { FaqItem, FaqSchema, WebApplicationSchema } from "./Schema";
 
 /** Reserves roughly a calculator's height so the Suspense fallback doesn't shift layout (CLS). */
 function CalculatorSkeleton() {
-  return <div className="h-[420px] animate-pulse rounded-xl bg-black/[.03] dark:bg-white/[.04]" />;
+  return <div className="h-[420px] animate-pulse rounded-xl bg-fill" />;
 }
 
 export interface CalculatorPageShellProps {
@@ -38,22 +38,22 @@ export function CalculatorPageShell({
       <WebApplicationSchema name={h1} description={schemaDescription} url={`${SITE_URL}/${slug}`} />
       <FaqSchema items={faq} />
 
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{h1}</h1>
+      <h1 className="font-display text-3xl leading-tight font-bold tracking-tight uppercase sm:text-4xl">
+        {h1}
+      </h1>
 
       <Suspense fallback={<CalculatorSkeleton />}>{calculator}</Suspense>
 
       <AffiliateSlot category={category} />
 
-      <div className="flex flex-col gap-3 text-sm leading-relaxed text-black/70 dark:text-white/70">
-        {explainer}
-      </div>
+      <div className="flex flex-col gap-3 text-sm leading-relaxed text-ink-dim">{explainer}</div>
 
       <section aria-label="Frequently asked questions" className="flex flex-col gap-4">
-        <h2 className="text-lg font-semibold">FAQ</h2>
+        <h2 className="font-display text-xl font-bold tracking-tight uppercase">FAQ</h2>
         {faq.map((item) => (
           <div key={item.question}>
-            <h3 className="font-medium">{item.question}</h3>
-            <p className="text-sm text-black/70 dark:text-white/70">{item.answer}</p>
+            <h3 className="font-medium text-ink">{item.question}</h3>
+            <p className="text-sm text-ink-dim">{item.answer}</p>
           </div>
         ))}
       </section>

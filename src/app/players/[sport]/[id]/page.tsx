@@ -40,20 +40,20 @@ export default async function PlayerDetailPage({ params }: { params: Promise<Par
     <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-8">
       <DemoDataBanner show={usingMockPlayers(sport)} />
       <div className="flex flex-col gap-2">
-        <span className="text-xs font-medium uppercase tracking-wide text-black/40 dark:text-white/40">
+        <span className="font-mono text-xs font-medium uppercase tracking-wide text-ink-dim">
           {SPORT_LABELS[sport]}
           {player.position ? ` · ${player.position}` : ""}
         </span>
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{player.name}</h1>
-        {player.team && <p className="text-black/60 dark:text-white/60">{player.team.name}</p>}
+        <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">{player.name}</h1>
+        {player.team && <p className="text-ink-dim">{player.team.name}</p>}
       </div>
 
       {player.stats && player.stats.length > 0 && (
-        <div className="rounded-xl border border-black/10 p-5 dark:border-white/15">
+        <div className="rounded-xl border border-line bg-surface p-5">
           <dl className="flex flex-col gap-2">
             {player.stats.map((stat) => (
               <div key={stat.label} className="flex items-baseline justify-between gap-4">
-                <dt className="text-sm text-black/60 dark:text-white/60">{stat.label}</dt>
+                <dt className="text-sm text-ink-dim">{stat.label}</dt>
                 <dd className="tabular-nums text-sm font-semibold">{stat.value}</dd>
               </div>
             ))}

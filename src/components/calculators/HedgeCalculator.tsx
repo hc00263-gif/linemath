@@ -60,6 +60,7 @@ export function HedgeCalculator() {
             label: "Guaranteed Profit",
             value: result ? formatCurrency(result.guaranteedProfit) : "—",
             emphasis: true,
+            tone: "positive",
           },
         ]}
         note="Guaranteed profit before limits, line movement, and bet cancellation risk."

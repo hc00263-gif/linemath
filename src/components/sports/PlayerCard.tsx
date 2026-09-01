@@ -6,15 +6,15 @@ export function PlayerCard({ player }: { player: Player }) {
   return (
     <Link
       href={`/players/${player.sport}/${player.id}`}
-      className="flex items-center justify-between gap-4 rounded-xl border border-black/10 p-4 transition-colors hover:border-black/30 dark:border-white/15 dark:hover:border-white/40"
+      className="flex items-center justify-between gap-4 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-accent/50"
     >
       <div className="flex flex-col gap-1">
-        <span className="text-xs font-medium uppercase tracking-wide text-black/40 dark:text-white/40">
+        <span className="font-mono text-xs font-medium tracking-wide text-ink-dim uppercase">
           {SPORT_LABELS[player.sport]}
           {player.position ? ` · ${player.position}` : ""}
         </span>
         <span className="font-medium">{player.name}</span>
-        {player.team && <span className="text-sm text-black/60 dark:text-white/60">{player.team.name}</span>}
+        {player.team && <span className="text-sm text-ink-dim">{player.team.name}</span>}
       </div>
     </Link>
   );

@@ -59,16 +59,14 @@ export function FantasyPointsCalculator() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="inline-flex flex-wrap rounded-lg border border-black/10 bg-black/[.03] p-1 dark:border-white/15 dark:bg-white/[.06]">
+      <div className="inline-flex flex-wrap rounded-lg border border-line bg-fill p-1">
         {PRESET_OPTIONS.map((option) => (
           <button
             key={option.value}
             type="button"
             onClick={() => setPreset(option.value)}
             className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-              preset === option.value
-                ? "bg-white text-black shadow-sm dark:bg-white dark:text-black"
-                : "text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white"
+              preset === option.value ? "bg-surface-raised text-ink shadow-sm" : "text-ink-dim hover:text-ink"
             }`}
           >
             {option.label}

@@ -38,13 +38,13 @@ export function MatchSearch({ games }: { games: Game[] }) {
         value={query}
         onChange={(event) => setQuery(event.target.value)}
         placeholder="Search by team name…"
-        className="rounded-lg border border-black/15 bg-transparent px-3 py-2 text-base outline-none transition-colors focus:border-black/40 focus:ring-2 focus:ring-black/10 dark:border-white/20 dark:focus:border-white/50 dark:focus:ring-white/10"
+        className="rounded-lg border border-line bg-surface px-3 py-2 text-base text-ink outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
       />
       <div className="flex flex-col gap-3">
         {filtered.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
-        {filtered.length === 0 && <p className="text-sm text-black/50 dark:text-white/50">No matches found.</p>}
+        {filtered.length === 0 && <p className="text-sm text-ink-dim">No matches found.</p>}
       </div>
     </div>
   );

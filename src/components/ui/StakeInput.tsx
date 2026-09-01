@@ -15,11 +15,11 @@ export function StakeInput({ label = "Stake", value, onChange, id }: StakeInputP
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={inputId} className="text-sm font-medium text-black/70 dark:text-white/70">
+      <label htmlFor={inputId} className="text-sm font-medium text-ink-dim">
         {label}
       </label>
       <div className="relative">
-        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-black/40 dark:text-white/40">
+        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 font-mono text-ink-dim">
           $
         </span>
         <input
@@ -30,7 +30,7 @@ export function StakeInput({ label = "Stake", value, onChange, id }: StakeInputP
           value={value}
           onChange={(event) => onChange(event.target.value)}
           placeholder="100"
-          className="w-full rounded-lg border border-black/15 bg-transparent py-2 pl-6 pr-3 text-base tabular-nums outline-none transition-colors focus:border-black/40 focus:ring-2 focus:ring-black/10 dark:border-white/20 dark:focus:border-white/50 dark:focus:ring-white/10"
+          className="w-full rounded-lg border border-line bg-surface py-2 pl-6 pr-3 font-mono text-base tabular-nums text-ink outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
         />
       </div>
     </div>

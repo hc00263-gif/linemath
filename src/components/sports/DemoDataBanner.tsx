@@ -9,7 +9,8 @@ const DEFAULT_NOTE = "Demo data — this page is showing placeholder fixtures, n
 export function DemoDataBanner({ show, note }: DemoDataBannerProps) {
   if (!show) return null;
   return (
-    <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-700 dark:text-amber-400">
+    <div className="flex items-center gap-2 rounded-lg border border-line bg-fill px-3 py-2 text-xs text-ink-dim">
+      <span className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-ink-dim" />
       {note ?? DEFAULT_NOTE}
     </div>
   );

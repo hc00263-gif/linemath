@@ -15,8 +15,8 @@ export function AffiliateSlot({ category, max = 2 }: AffiliateSlotProps) {
   if (offers.length === 0) return null;
 
   return (
-    <section aria-label="Sportsbook offers" className="rounded-xl border border-black/10 p-4 dark:border-white/15">
-      <p className="mb-3 text-[11px] font-medium uppercase tracking-wide text-black/40 dark:text-white/40">
+    <section aria-label="Sportsbook offers" className="rounded-xl border border-line p-4">
+      <p className="mb-3 font-mono text-[11px] font-medium tracking-wide text-ink-dim uppercase">
         Advertising Disclosure — LineMath may earn a commission from offers below
       </p>
       <div className="grid gap-3 sm:grid-cols-2">
@@ -26,13 +26,11 @@ export function AffiliateSlot({ category, max = 2 }: AffiliateSlotProps) {
             href={offer.ctaUrl}
             target="_blank"
             rel="noopener noreferrer sponsored"
-            className="flex flex-col gap-1 rounded-lg border border-black/10 p-3 transition-colors hover:border-black/30 dark:border-white/15 dark:hover:border-white/40"
+            className="flex flex-col gap-1 rounded-lg border border-line p-3 transition-colors hover:border-accent/50"
           >
             <span className="text-sm font-semibold">{offer.sportsbook}</span>
-            <span className="text-sm text-black/70 dark:text-white/70">{offer.headline}</span>
-            <span className="mt-2 text-xs font-medium text-blue-600 dark:text-blue-400">
-              {offer.ctaLabel} →
-            </span>
+            <span className="text-sm text-ink-dim">{offer.headline}</span>
+            <span className="mt-2 text-xs font-medium text-accent">{offer.ctaLabel} →</span>
           </a>
         ))}
       </div>

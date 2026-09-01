@@ -54,7 +54,11 @@ export function BonusBetCalculator() {
         <OddsInput label="Hedge Odds" format={format} value={hedgeOddsValue} onChange={setHedgeOddsValue} />
       </div>
       <ResultCard
-        primary={{ label: "Guaranteed Cash", value: result ? formatCurrency(result.guaranteedCash) : "—" }}
+        primary={{
+          label: "Guaranteed Cash",
+          value: result ? formatCurrency(result.guaranteedCash) : "—",
+          tone: "positive",
+        }}
         rows={[
           { label: "Hedge Stake", value: result ? formatCurrency(result.hedgeStake) : "—" },
           {

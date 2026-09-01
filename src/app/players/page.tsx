@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 export default function PlayersPage() {
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-8">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{meta.title}</h1>
-      <Suspense fallback={<div className="h-96 animate-pulse rounded-xl bg-black/[.03] dark:bg-white/[.04]" />}>
+      <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">{meta.title}</h1>
+      <Suspense fallback={<div className="h-96 animate-pulse rounded-xl bg-fill" />}>
         <PlayerSearch />
       </Suspense>
     </div>

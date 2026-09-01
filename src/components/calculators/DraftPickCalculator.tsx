@@ -32,7 +32,7 @@ export function DraftPickCalculator() {
         <StatField label="Your Slot" value={slotValue} onChange={setSlotValue} />
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-black/70 dark:text-white/70">
+      <label className="flex items-center gap-2 text-sm text-ink-dim">
         <input
           type="checkbox"
           checked={thirdRoundReversal}
@@ -41,16 +41,16 @@ export function DraftPickCalculator() {
         3rd-round reversal (3RR)
       </label>
 
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-negative">{error}</p>}
 
       {picks && (
-        <div className="rounded-xl border border-black/10 p-5 dark:border-white/15">
-          <div className="text-sm font-medium text-black/60 dark:text-white/60">Your picks</div>
+        <div className="rounded-xl border border-line bg-surface p-5">
+          <div className="text-sm font-medium text-ink-dim">Your picks</div>
           <div className="mt-3 flex flex-wrap gap-2">
             {picks.map((pick) => (
               <span
                 key={pick.overallPick}
-                className="rounded-full bg-black/[.04] px-3 py-1 text-sm font-semibold tabular-nums dark:bg-white/[.08]"
+                className="rounded-full bg-fill px-3 py-1 font-mono text-sm font-semibold tabular-nums"
               >
                 Rd {pick.round}, Pick {pick.overallPick}
               </span>

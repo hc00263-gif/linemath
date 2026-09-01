@@ -19,7 +19,7 @@ export function OddsFormatToggle({ value, onChange, className }: OddsFormatToggl
     <div
       role="radiogroup"
       aria-label="Odds format"
-      className={`inline-flex rounded-lg border border-black/10 bg-black/[.03] p-1 dark:border-white/15 dark:bg-white/[.06] ${className ?? ""}`}
+      className={`inline-flex rounded-lg border border-line bg-fill p-1 ${className ?? ""}`}
     >
       {OPTIONS.map((option) => {
         const selected = option.value === value;
@@ -31,9 +31,7 @@ export function OddsFormatToggle({ value, onChange, className }: OddsFormatToggl
             aria-checked={selected}
             onClick={() => onChange(option.value)}
             className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-              selected
-                ? "bg-white text-black shadow-sm dark:bg-white dark:text-black"
-                : "text-black/60 hover:text-black dark:text-white/60 dark:hover:text-white"
+              selected ? "bg-surface-raised text-ink shadow-sm" : "text-ink-dim hover:text-ink"
             }`}
           >
             {option.label}

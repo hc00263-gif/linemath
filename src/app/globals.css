@@ -1,26 +1,88 @@
 @import "tailwindcss";
 
+/* Light (default / unstamped) palette */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ground: #f8f9fa;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --fill: rgba(20, 23, 26, 0.04);
+  --line: #e3e6e9;
+  --ink: #14171a;
+  --ink-dim: #5b6470;
+  --accent: #c97a00;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(201, 122, 0, 0.1);
+  --positive: #1e9e63;
+  --positive-soft: rgba(30, 158, 99, 0.1);
+  --negative: #d93a44;
+  --negative-soft: rgba(217, 58, 68, 0.1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Dark palette, system preference */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --ground: #0c0e11;
+    --surface: #15181d;
+    --surface-raised: #1b1f25;
+    --fill: rgba(255, 255, 255, 0.06);
+    --line: #262b32;
+    --ink: #eceeef;
+    --ink-dim: #9aa1ab;
+    --accent: #ffb020;
+    --accent-ink: #1a1200;
+    --accent-soft: rgba(255, 176, 32, 0.14);
+    --positive: #3ecf8e;
+    --positive-soft: rgba(62, 207, 142, 0.14);
+    --negative: #f2555f;
+    --negative-soft: rgba(242, 85, 95, 0.14);
   }
 }
 
+/* Dark palette, explicit toggle (wins over system) */
+:root[data-theme="dark"] {
+  --ground: #0c0e11;
+  --surface: #15181d;
+  --surface-raised: #1b1f25;
+  --fill: rgba(255, 255, 255, 0.06);
+  --line: #262b32;
+  --ink: #eceeef;
+  --ink-dim: #9aa1ab;
+  --accent: #ffb020;
+  --accent-ink: #1a1200;
+  --accent-soft: rgba(255, 176, 32, 0.14);
+  --positive: #3ecf8e;
+  --positive-soft: rgba(62, 207, 142, 0.14);
+  --negative: #f2555f;
+  --negative-soft: rgba(242, 85, 95, 0.14);
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-fill: var(--fill);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-positive: var(--positive);
+  --color-positive-soft: var(--positive-soft);
+  --color-negative: var(--negative);
+  --color-negative-soft: var(--negative-soft);
+
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+  --font-display: var(--font-shoulders);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
 }

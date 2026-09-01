@@ -1,32 +1,46 @@
+export type ResultTone = "neutral" | "positive" | "negative";
+
 export interface ResultCardRow {
   label: string;
   value: string;
   emphasis?: boolean;
+  tone?: ResultTone;
 }
 
 export interface ResultCardProps {
-  primary: { label: string; value: string };
+  primary: { label: string; value: string; tone?: ResultTone };
   rows?: ResultCardRow[];
   note?: string;
 }
 
+const TONE_CLASS: Record<ResultTone, string> = {
+  neutral: "text-ink",
+  positive: "text-positive",
+  negative: "text-negative",
+};
+
 /**
  * Big, instant result display — no submit button, computed live on every keystroke by
  * the calculator that renders it. Reserves its own height so results appearing/changing
- * never shifts layout (CLS).
+ * never shifts layout (CLS). `tone` is semantic — reserve "positive" for a genuine gain
+ * (profit, guaranteed cash), never as decoration.
  */
 export function ResultCard({ primary, rows, note }: ResultCardProps) {
   return (
-    <div className="rounded-xl border border-black/10 bg-black/[.02] p-5 dark:border-white/15 dark:bg-white/[.04]">
-      <div className="text-sm font-medium text-black/60 dark:text-white/60">{primary.label}</div>
-      <div className="mt-1 text-4xl font-bold tabular-nums tracking-tight">{primary.value}</div>
+    <div className="rounded-xl border border-line bg-surface p-5">
+      <div className="text-sm font-medium text-ink-dim">{primary.label}</div>
+      <div
+        className={`mt-1 font-mono text-4xl font-semibold tracking-tight tabular-nums ${TONE_CLASS[primary.tone ?? "neutral"]}`}
+      >
+        {primary.value}
+      </div>
       {rows && rows.length > 0 && (
-        <dl className="mt-4 flex flex-col gap-2 border-t border-black/10 pt-4 dark:border-white/15">
+        <dl className="mt-4 flex flex-col gap-2 border-t border-line pt-4">
           {rows.map((row) => (
             <div key={row.label} className="flex items-baseline justify-between gap-4">
-              <dt className="text-sm text-black/60 dark:text-white/60">{row.label}</dt>
+              <dt className="text-sm text-ink-dim">{row.label}</dt>
               <dd
-                className={`tabular-nums ${row.emphasis ? "text-base font-semibold" : "text-sm"}`}
+                className={`font-mono tabular-nums ${row.emphasis ? "text-base font-semibold" : "text-sm"} ${TONE_CLASS[row.tone ?? "neutral"]}`}
               >
                 {row.value}
               </dd>
@@ -34,7 +48,7 @@ export function ResultCard({ primary, rows, note }: ResultCardProps) {
           ))}
         </dl>
       )}
-      {note && <p className="mt-4 text-xs text-black/50 dark:text-white/50">{note}</p>}
+      {note && <p className="mt-4 text-xs text-ink-dim">{note}</p>}
     </div>
   );
 }

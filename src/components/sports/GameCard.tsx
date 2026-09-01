@@ -14,30 +14,29 @@ export function GameCard({ game }: { game: Game }) {
   return (
     <Link
       href={`/matches/${game.sport}/${game.id}`}
-      className="flex items-center justify-between gap-4 rounded-xl border border-black/10 p-4 transition-colors hover:border-black/30 dark:border-white/15 dark:hover:border-white/40"
+      className="flex items-center justify-between gap-4 rounded-xl border border-line bg-surface p-4 transition-colors hover:border-accent/50"
     >
       <div className="flex flex-col gap-1">
-        <span className="text-xs font-medium uppercase tracking-wide text-black/40 dark:text-white/40">
+        <span className="font-mono text-xs font-medium tracking-wide text-ink-dim uppercase">
           {game.league}
         </span>
         <span className="font-medium">
           {game.awayTeam.name} @ {game.homeTeam.name}
         </span>
-        <span className="text-sm text-black/60 dark:text-white/60">{formatGameTime(game.startTime)}</span>
+        <span className="text-sm text-ink-dim">{formatGameTime(game.startTime)}</span>
       </div>
       <div className="flex flex-col items-end gap-1">
         {game.status === "live" && (
-          <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-semibold text-red-600 dark:text-red-400">
+          <span className="flex items-center gap-1.5 rounded-full bg-positive-soft px-2 py-0.5 font-mono text-[10.5px] font-semibold tracking-wide text-positive">
+            <span className="h-1.5 w-1.5 rounded-full bg-positive" />
             {STATUS_LABEL.live}
           </span>
         )}
         {game.status === "final" && (
-          <span className="text-xs font-semibold text-black/40 dark:text-white/40">
-            {STATUS_LABEL.final}
-          </span>
+          <span className="font-mono text-xs font-semibold text-ink-dim">{STATUS_LABEL.final}</span>
         )}
         {hasScore && (
-          <span className="tabular-nums text-sm font-semibold">
+          <span className="font-mono text-sm font-semibold tabular-nums">
             {game.awayScore}-{game.homeScore}
           </span>
         )}

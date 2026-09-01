@@ -42,7 +42,7 @@ export function OddsInput({ label, format, value, onChange, placeholder, id }: O
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={inputId} className="text-sm font-medium text-black/70 dark:text-white/70">
+      <label htmlFor={inputId} className="text-sm font-medium text-ink-dim">
         {label}
       </label>
       <input
@@ -54,15 +54,15 @@ export function OddsInput({ label, format, value, onChange, placeholder, id }: O
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder ?? FORMAT_PLACEHOLDER[format]}
         aria-invalid={error ? "true" : undefined}
-        className={`rounded-lg border bg-transparent px-3 py-2 text-base tabular-nums outline-none transition-colors focus:ring-2 ${
+        className={`rounded-lg border bg-surface px-3 py-2 font-mono text-base tabular-nums text-ink outline-none transition-colors focus:ring-2 ${
           error
-            ? "border-red-500 focus:ring-red-500/30"
-            : "border-black/15 focus:border-black/40 focus:ring-black/10 dark:border-white/20 dark:focus:border-white/50 dark:focus:ring-white/10"
+            ? "border-negative focus:ring-negative/25"
+            : "border-line focus:border-accent focus:ring-accent/20"
         }`}
       />
-      <div className="min-h-[1.1rem] text-xs text-black/50 dark:text-white/50">
+      <div className="min-h-[1.1rem] font-mono text-xs text-ink-dim">
         {error ? (
-          <span className="text-red-500">{error}</span>
+          <span className="text-negative">{error}</span>
         ) : (
           odds && (
             <span>
