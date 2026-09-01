@@ -1,0 +1,24 @@
+name: News ingest
+
+on:
+  schedule:
+    # Every 5 minutes. GitHub Actions cron is best-effort under load, not exact —
+    # fine for "near real time" news, not a hard real-time guarantee.
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call ingest endpoint
+        run: |
+          status=$(curl -s -o /tmp/response.json -w "%{http_code}" \
+            -X POST "${{ secrets.NEWS_INGEST_URL }}" \
+            -H "x-news-ingest-secret: ${{ secrets.NEWS_INGEST_SECRET }}")
+          echo "HTTP status: $status"
+          cat /tmp/response.json
+          if [ "$status" -ge 300 ]; then
+            echo "Ingest call failed with status $status"
+            exit 1
+          fi

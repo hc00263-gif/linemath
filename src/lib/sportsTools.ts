@@ -25,6 +25,12 @@ export const SPORTS_TOOLS: SportsToolMeta[] = [
     shortTitle: "Player Lookup",
     description: "Search players by name across NBA, NFL, NHL, and MLB.",
   },
+  {
+    slug: "news",
+    title: "Sports News — NFL, NBA, NHL, Tennis, UFC & Soccer",
+    shortTitle: "News",
+    description: "Major breaking news across NFL, NBA, NHL, tennis majors, UFC, European soccer, and USA soccer.",
+  },
 ];
 
 export function getSportsTool(slug: string): SportsToolMeta | undefined {
