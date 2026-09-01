@@ -4,9 +4,12 @@ const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 /**
  * A current OpenRouter free-tier (":free" suffix) model. The free roster changes as
  * providers adjust hosting — check https://openrouter.ai/models?max_price=0 if this
- * one disappears, and swap the constant below.
+ * one disappears or starts rate-limiting persistently, and swap the constant below.
+ * (Switched from z-ai/glm-5.2:free on 2026-09-01 after it started returning HTTP 429
+ * "temporarily rate-limited upstream" on every request, even single-item batches —
+ * chose this one for its high weekly volume, a rough proxy for available capacity.)
  */
-const MODEL = "z-ai/glm-5.2:free";
+const MODEL = "minimax/minimax-m3:free";
 /** Keep batches small: fewer tokens per call, and one bad item can't derail the whole batch. */
 const BATCH_SIZE = 25;
 const REQUEST_TIMEOUT_MS = 30_000;
