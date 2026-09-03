@@ -70,7 +70,7 @@ async function classifyBatch(items: NewsItem[], attempt = 0): Promise<NewsItem[]
       headers: {
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://linemath.com",
+        "HTTP-Referer": "https://www.linemath.com",
         "X-Title": "LineMath News Classifier",
       },
       body: JSON.stringify({

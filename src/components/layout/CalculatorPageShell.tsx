@@ -18,7 +18,7 @@ export interface CalculatorPageShellProps {
   faq: FaqItem[];
 }
 
-const SITE_URL = "https://linemath.com";
+const SITE_URL = "https://www.linemath.com";
 
 /**
  * Shared layout for every calculator page: H1, calculator above the fold, affiliate

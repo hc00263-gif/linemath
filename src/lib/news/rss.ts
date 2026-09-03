@@ -23,7 +23,7 @@ async function fetchOneSource(source: NewsSource, now: string): Promise<NewsItem
   try {
     const res = await fetch(source.url, {
       signal: controller.signal,
-      headers: { "User-Agent": "LineMathNewsBot/1.0 (+https://linemath.com)" },
+      headers: { "User-Agent": "LineMathNewsBot/1.0 (+https://www.linemath.com)" },
     });
     if (!res.ok) {
       console.error(`[news] ${source.name}: HTTP ${res.status}`);
