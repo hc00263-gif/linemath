@@ -3,6 +3,7 @@ import { Big_Shoulders, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { RGFooter } from "@/components/layout/RGFooter";
+import { Analytics } from "@vercel/analytics/next";
 
 const plexSans = IBM_Plex_Sans({
   variable: "--font-plex-sans",
@@ -89,6 +90,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <RGFooter />
+        <Analytics />
       </body>
     </html>
   );

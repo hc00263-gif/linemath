@@ -12,11 +12,12 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@upstash/redis": "^1.38.3",
+    "@vercel/analytics": "^2.0.1",
     "next": "^16.3.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "rss-parser": "^3.13.0",
-    "@upstash/redis": "^1.38.3",
     "web-push": "^3.6.7"
   },
   "devDependencies": {
@@ -24,11 +25,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/web-push": "^3.6.4",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^4.1.10",
-    "@types/web-push": "^3.6.4"
+    "vitest": "^4.1.10"
   }
 }
