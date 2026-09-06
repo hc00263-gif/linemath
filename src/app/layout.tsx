@@ -47,6 +47,9 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
+  verification: {
+    google: "R8GZ6ylHJ0wccT9M4HDLyM5jv-Q2hCAfQlUpdJJ3pSg",
+  },
 };
 
 const jsonLd = {
