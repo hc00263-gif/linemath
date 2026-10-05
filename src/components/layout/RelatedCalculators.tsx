@@ -1,8 +1,12 @@
 import Link from "next/link";
-import { CALCULATORS } from "@/lib/calculators";
+import { CALCULATORS, getCalculator } from "@/lib/calculators";
 
 export function RelatedCalculators({ exclude, max = 4 }: { exclude: string; max?: number }) {
-  const others = CALCULATORS.filter((calc) => calc.slug !== exclude).slice(0, max);
+  const curated = (getCalculator(exclude)?.related ?? [])
+    .map((slug) => getCalculator(slug))
+    .filter((calc): calc is NonNullable<typeof calc> => Boolean(calc));
+  const fallback = CALCULATORS.filter((calc) => calc.slug !== exclude);
+  const others = (curated.length > 0 ? curated : fallback).slice(0, max);
 
   return (
     <nav aria-label="Related calculators" className="flex flex-col gap-3">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { getSportsTool } from "@/lib/sportsTools";
 import { getRecentItems } from "@/lib/news/store";
 import { isStoreConfigured } from "@/lib/news/store";
@@ -9,11 +10,7 @@ export const dynamic = "force-dynamic";
 
 const meta = getSportsTool("news")!;
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: `/${meta.slug}` },
-};
+export const metadata: Metadata = pageMetadata({ title: meta.title, description: meta.description, path: `/${meta.slug}` });
 
 export default async function NewsPage() {
   const configured = isStoreConfigured();

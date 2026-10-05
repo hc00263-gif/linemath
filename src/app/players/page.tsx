@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Suspense } from "react";
 import { PlayerSearch } from "@/components/sports/PlayerSearch";
 import { getSportsTool } from "@/lib/sportsTools";
 
 const meta = getSportsTool("players")!;
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: `/${meta.slug}` },
-};
+export const metadata: Metadata = pageMetadata({ title: meta.title, description: meta.description, path: `/${meta.slug}` });
 
 export default function PlayersPage() {
   return (

@@ -1,31 +1,25 @@
 import type { MetadataRoute } from "next";
+import { CALCULATORS } from "@/lib/calculators";
+import { GUIDES } from "@/lib/guides";
+import { SITE_URL } from "@/lib/seo";
 
-const SITE_URL = "https://www.linemath.com";
+type Entry = MetadataRoute.Sitemap[number];
 
-/** Static, indexable routes. Dynamic per-match/per-player detail pages are intentionally
- * omitted — there's no stable, enumerable list of them, and search engines discover them fine
- * through normal crawling of the /matches and /players lookup pages. */
-const ROUTES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
-  { path: "", changeFrequency: "weekly", priority: 1 },
-  { path: "/odds-converter", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/betting-odds-calculator", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/parlay-calculator", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/hedge-calculator", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/bonus-bet-calculator", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/fantasy-points-calculator", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/draft-pick-calculator", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/calendar", changeFrequency: "daily", priority: 0.6 },
-  { path: "/matches", changeFrequency: "daily", priority: 0.6 },
-  { path: "/players", changeFrequency: "weekly", priority: 0.5 },
-  { path: "/news", changeFrequency: "hourly", priority: 0.9 },
-];
+/** Sports pages backed by demo data are deliberately noindex and therefore left out (/calendar, /matches). */
+const SPORTS_INDEXABLE = ["/players", "/news"];
+const INFO_PAGES = ["/about", "/guides", "/responsible-gambling", "/advertising-disclosure", "/terms", "/privacy"];
 
+/**
+ * lastModified is omitted for static pages on purpose: stamping every URL with "now" on every build
+ * teaches crawlers to ignore the field. Only the news feed, which genuinely changes, carries one.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-  return ROUTES.map((route) => ({
-    url: `${SITE_URL}${route.path}`,
-    lastModified: now,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }));
+  const entry = (path: string, extra: Partial<Entry> = {}): Entry => ({ url: `${SITE_URL}${path}`, ...extra });
+  return [
+    entry("", { priority: 1 }),
+    ...CALCULATORS.map((c) => entry(`/${c.slug}`, { priority: 0.8 })),
+    ...GUIDES.map((g) => entry(`/guides/${g.slug}`, { priority: 0.7 })),
+    ...SPORTS_INDEXABLE.map((p) => (p === "/news" ? entry(p, { lastModified: new Date(), priority: 0.8 }) : entry(p, { priority: 0.5 }))),
+    ...INFO_PAGES.map((p) => entry(p, { priority: 0.4 })),
+  ];
 }

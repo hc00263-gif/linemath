@@ -25,6 +25,7 @@ export async function generateMetadata({
   const game = await getSportsProvider().getGame(sport, id);
   if (!game) return {};
   return {
+    robots: { index: false, follow: true },
     title: `${game.awayTeam.name} @ ${game.homeTeam.name} — ${SPORT_LABELS[sport]}`,
     description: `${game.awayTeam.name} at ${game.homeTeam.name}, ${formatGameTime(game.startTime)}.`,
   };

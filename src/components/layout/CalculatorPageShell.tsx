@@ -1,7 +1,8 @@
 import { ReactNode, Suspense } from "react";
 import { AffiliateSlot } from "./AffiliateSlot";
 import { RelatedCalculators } from "./RelatedCalculators";
-import { FaqItem, FaqSchema, WebApplicationSchema } from "./Schema";
+import { SITE_URL } from "@/lib/seo";
+import { BreadcrumbSchema, FaqItem, FaqSchema, WebApplicationSchema } from "./Schema";
 
 /** Reserves roughly a calculator's height so the Suspense fallback doesn't shift layout (CLS). */
 function CalculatorSkeleton() {
@@ -18,7 +19,6 @@ export interface CalculatorPageShellProps {
   faq: FaqItem[];
 }
 
-const SITE_URL = "https://www.linemath.com";
 
 /**
  * Shared layout for every calculator page: H1, calculator above the fold, affiliate
@@ -37,6 +37,7 @@ export function CalculatorPageShell({
     <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-8">
       <WebApplicationSchema name={h1} description={schemaDescription} url={`${SITE_URL}/${slug}`} />
       <FaqSchema items={faq} />
+      <BreadcrumbSchema items={[{ name: "Home", url: SITE_URL }, { name: h1, url: `${SITE_URL}/${slug}` }]} />
 
       <h1 className="font-display text-3xl leading-tight font-bold tracking-tight uppercase sm:text-4xl">
         {h1}

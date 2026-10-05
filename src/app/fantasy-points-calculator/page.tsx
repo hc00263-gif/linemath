@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { FantasyPointsCalculator } from "@/components/calculators/FantasyPointsCalculator";
 import { CalculatorPageShell } from "@/components/layout/CalculatorPageShell";
+import { Formula, H2, P, UL } from "@/components/layout/Prose";
 import { getCalculator } from "@/lib/calculators";
 
 const meta = getCalculator("fantasy-points-calculator")!;
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: `/${meta.slug}` },
-};
+export const metadata: Metadata = pageMetadata({ title: meta.title, description: meta.description, path: `/${meta.slug}` });
 
 const faq = [
   {
@@ -27,6 +25,16 @@ const faq = [
     answer:
       "Not yet — this first version covers the three most common formats (Standard, Half-PPR, PPR) using typical point values (4pt pass TD, 6pt rush/rec TD, -2 INT/fumble, 1pt per 25 pass yds or 10 rush/rec yds). Custom per-stat scoring is a natural next step.",
   },
+  {
+    question: "Does this include kickers and defenses?",
+    answer:
+      "Not yet — this version scores offensive skill positions (QB, RB, WR, TE), which cover most roster decisions.",
+  },
+  {
+    question: "Can I use my league’s custom scoring?",
+    answer:
+      "Custom per-stat values are not available yet; the three presets cover the most common formats.",
+  },
 ];
 
 export default function FantasyPointsCalculatorPage() {
@@ -40,17 +48,23 @@ export default function FantasyPointsCalculatorPage() {
       faq={faq}
       explainer={
         <>
-          <p>
-            Enter a player&apos;s box score — passing, rushing, receiving, turnovers, two-point
-            conversions — and see fantasy points instantly across the three most common scoring
-            formats. No signup, no roster to build, just the stat line you already have in front
-            of you.
-          </p>
-          <p>
-            <strong>Worked example:</strong> 8 catches, 120 receiving yards, 1 receiving
-            touchdown scores 18.0 points in Standard, 22.0 in Half-PPR, and 26.0 in full PPR — the
-            8 receptions alone are worth the entire 8-point swing between formats.
-          </p>
+          <P>
+            Enter a player’s box score — passing, rushing, receiving, turnovers, two-point conversions — and see fantasy points instantly across Standard, Half-PPR, and PPR. No signup, no roster to build.
+          </P>
+          <H2>Scoring used</H2>
+          <Formula>{`Passing:    1 pt per 25 yds (0.04/yd), 4 pts per TD, -2 per INT
+Rushing:    1 pt per 10 yds (0.1/yd), 6 pts per TD
+Receiving:  1 pt per 10 yds (0.1/yd), 6 pts per TD
+Reception:  0 (Standard), 0.5 (Half-PPR), 1 (PPR)
+Fumble lost: -2     Two-point conversion: +2`}</Formula>
+          <H2>Worked examples</H2>
+          <UL>
+            <li>Receiver, 8 catches / 120 yds / 1 TD: 18.0 Standard, 22.0 Half-PPR, 26.0 PPR — the 8 receptions are the whole difference.</li>
+            <li>Quarterback, 300 pass yds / 3 TD / 1 INT / 10 rush yds: 12 + 12 − 2 + 1 = 23.0 in any format.</li>
+          </UL>
+          <P>
+            Drafting soon? The <a className="underline" href="/draft-pick-calculator">draft pick calculator</a> shows exactly which picks you hold in a snake draft.
+          </P>
         </>
       }
     />

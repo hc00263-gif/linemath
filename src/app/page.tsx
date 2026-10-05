@@ -21,6 +21,12 @@ const READOUTS: Record<string, { input: string; output: string; tone?: "positive
   "bonus-bet-calculator": { input: "$100 free bet", output: "62.5% cash", tone: "positive" },
   "fantasy-points-calculator": { input: "8 rec, 120 yd, 1 TD", output: "26.0 pts", tone: "positive" },
   "draft-pick-calculator": { input: "Slot 4, 3RR", output: "4, 5, 9, 16" },
+  "no-vig-calculator": { input: "−200 / +170", output: "−180 / +180", tone: "positive" },
+  "vig-calculator": { input: "−110 / −110", output: "4.55% hold" },
+  "ev-calculator": { input: "$100 @ +120, 50%", output: "+$10.00", tone: "positive" },
+  "kelly-calculator": { input: "+150, 45%", output: "8.33% bankroll", tone: "positive" },
+  "arbitrage-calculator": { input: "+105 / −102", output: "+0.73% arb", tone: "positive" },
+  news: { input: "6 sports", output: "live alerts" },
   calendar: { input: "NBA · NFL · NHL · MLB", output: "+ 4 majors" },
   matches: { input: "Search by team", output: "live lookup" },
   players: { input: "NFL · Mahomes", output: "QB, KC" },
@@ -96,7 +102,7 @@ export default function Home() {
             <div className="mt-1 text-xs text-ink-dim">Real cash from a $100 bonus bet at +200</div>
           </div>
           <div>
-            <div className="font-mono text-2xl font-semibold tabular-nums text-accent">119</div>
+            <div className="font-mono text-2xl font-semibold tabular-nums text-accent">136</div>
             <div className="mt-1 text-xs text-ink-dim">Automated tests behind every calculator</div>
           </div>
         </div>
@@ -106,7 +112,7 @@ export default function Home() {
         <div className="mb-8 max-w-[60ch]">
           <div className="mb-2.5 font-mono text-xs tracking-wide text-ink-dim uppercase">The Toolkit</div>
           <h2 className="font-display text-4xl leading-none font-bold tracking-tight uppercase">
-            Ten tools. One page each.
+            Every tool. One page each.
           </h2>
           <p className="mt-3 text-[15px] leading-relaxed text-ink-dim">
             Every tool is its own fast page — enter numbers, see the answer instantly. No forms to

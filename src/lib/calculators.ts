@@ -3,6 +3,8 @@ export interface CalculatorMeta {
   title: string;
   shortTitle: string;
   description: string;
+  /** Slugs of the calculators most relevant to this one, for internal linking. */
+  related?: string[];
 }
 
 /** Single source of truth for every calculator's route, nav label, and card copy. */
@@ -48,6 +50,41 @@ export const CALCULATORS: CalculatorMeta[] = [
     title: "Fantasy Draft Pick Calculator — Snake Draft Order",
     shortTitle: "Draft Pick Calculator",
     description: "See exactly which overall picks you get in a snake draft, with optional 3RR.",
+  },
+  {
+    slug: "no-vig-calculator",
+    title: "No-Vig Calculator — Fair Odds & Devig Calculator",
+    shortTitle: "No-Vig Calculator",
+    description: "Strip the sportsbook's margin out of any line to see true fair odds and win probabilities.",
+    related: ["vig-calculator", "ev-calculator", "kelly-calculator", "odds-converter"],
+  },
+  {
+    slug: "vig-calculator",
+    title: "Vig Calculator — Sportsbook Hold & Juice",
+    shortTitle: "Vig Calculator",
+    description: "See exactly how much margin a sportsbook is charging on any two- or three-way market.",
+    related: ["no-vig-calculator", "arbitrage-calculator", "odds-converter", "ev-calculator"],
+  },
+  {
+    slug: "ev-calculator",
+    title: "EV Calculator — Sports Betting Expected Value",
+    shortTitle: "EV Calculator",
+    description: "Find the expected value of a bet from your own win probability — in dollars and as a percent.",
+    related: ["kelly-calculator", "no-vig-calculator", "betting-odds-calculator", "parlay-calculator"],
+  },
+  {
+    slug: "kelly-calculator",
+    title: "Kelly Criterion Calculator — Bet Sizing",
+    shortTitle: "Kelly Calculator",
+    description: "Size every bet to your edge with full, half, or quarter Kelly — never a negative-EV stake.",
+    related: ["ev-calculator", "no-vig-calculator", "betting-odds-calculator", "hedge-calculator"],
+  },
+  {
+    slug: "arbitrage-calculator",
+    title: "Arbitrage Calculator — Sports Betting Arb Finder",
+    shortTitle: "Arbitrage Calculator",
+    description: "Split a stake across books for an equal payout either way — and know instantly if no arb exists.",
+    related: ["hedge-calculator", "vig-calculator", "no-vig-calculator", "bonus-bet-calculator"],
   },
 ];
 

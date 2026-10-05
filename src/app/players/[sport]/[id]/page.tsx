@@ -23,6 +23,7 @@ export async function generateMetadata({
   const player = await getSportsProvider().getPlayer(sport, id);
   if (!player) return {};
   return {
+    robots: { index: false, follow: true },
     title: `${player.name} — ${SPORT_LABELS[sport]} Player Profile`,
     description: `${player.name}${player.team ? `, ${player.team.name}` : ""}${
       player.position ? ` (${player.position})` : ""

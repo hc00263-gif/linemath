@@ -10,7 +10,8 @@ export interface AffiliateOffer {
   categories: string[];
 }
 
-const OFFERS = offersJson as AffiliateOffer[];
+/** Offers still pointing at example.com are template placeholders — never render them live. */
+const OFFERS = (offersJson as AffiliateOffer[]).filter((offer) => !new URL(offer.ctaUrl).hostname.endsWith("example.com"));
 
 /** Offers relevant to a calculator category, falling back to "general" offers if none match. */
 export function getOffers(category: string, max = 2): AffiliateOffer[] {

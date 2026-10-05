@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Suspense } from "react";
 import { getSportsProvider, TEAM_SPORTS, usingMockGames } from "@/lib/sports";
 import { getUpcomingTennisMajors } from "@/lib/sports/tennisMajors";
@@ -10,11 +11,7 @@ export const revalidate = 3600;
 
 const meta = getSportsTool("calendar")!;
 
-export const metadata: Metadata = {
-  title: meta.title,
-  description: meta.description,
-  alternates: { canonical: `/${meta.slug}` },
-};
+export const metadata: Metadata = pageMetadata({ title: meta.title, description: meta.description, path: `/${meta.slug}`, noindex: true });
 
 export default async function CalendarPage() {
   const provider = getSportsProvider();
