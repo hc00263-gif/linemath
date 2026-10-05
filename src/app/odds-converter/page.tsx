@@ -23,7 +23,7 @@ const faq = [
   {
     question: "Why don't the implied probabilities on both sides of a game add up to 100%?",
     answer:
-      "Because the book bakes in a margin, called the vig or juice. Add up the implied probability of both sides of a two-way market and you'll typically get somewhere around 104-107%, not 100%. Our no-vig calculator (coming soon) strips that margin out.",
+      "Because the book bakes in a margin, called the vig or juice. Add up the implied probability of both sides of a two-way market and you'll typically get somewhere around 104-107%, not 100%. Our no-vig calculator strips that margin out, and the vig calculator measures it.",
   },
   {
     question: "Why can’t American odds be between -100 and +100?",

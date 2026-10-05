@@ -26,6 +26,7 @@ export const CALCULATORS: CalculatorMeta[] = [
     title: "Parlay Calculator — Free Parlay Odds & Payout Calculator",
     shortTitle: "Parlay Calculator",
     description: "Combine up to 12 legs and see true parlay odds and payout, pushes included.",
+    related: ["round-robin-calculator", "teaser-calculator", "ev-calculator", "betting-odds-calculator"],
   },
   {
     slug: "hedge-calculator",
@@ -85,6 +86,20 @@ export const CALCULATORS: CalculatorMeta[] = [
     shortTitle: "Arbitrage Calculator",
     description: "Split a stake across books for an equal payout either way — and know instantly if no arb exists.",
     related: ["hedge-calculator", "vig-calculator", "no-vig-calculator", "bonus-bet-calculator"],
+  },
+  {
+    slug: "round-robin-calculator",
+    title: "Round Robin Calculator — Parlay Combinations",
+    shortTitle: "Round Robin Calculator",
+    description: "Bet every parlay combination of your picks and see the payout for each win/loss scenario.",
+    related: ["parlay-calculator", "teaser-calculator", "ev-calculator", "betting-odds-calculator"],
+  },
+  {
+    slug: "teaser-calculator",
+    title: "Teaser Calculator — Payout & Break-Even",
+    shortTitle: "Teaser Calculator",
+    description: "Price a teaser from your book's odds and see the win rate each leg needs to break even.",
+    related: ["parlay-calculator", "round-robin-calculator", "ev-calculator", "vig-calculator"],
   },
 ];
 

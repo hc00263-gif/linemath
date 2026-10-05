@@ -26,6 +26,8 @@ const READOUTS: Record<string, { input: string; output: string; tone?: "positive
   "ev-calculator": { input: "$100 @ +120, 50%", output: "+$10.00", tone: "positive" },
   "kelly-calculator": { input: "+150, 45%", output: "8.33% bankroll", tone: "positive" },
   "arbitrage-calculator": { input: "+105 / −102", output: "+0.73% arb", tone: "positive" },
+  "round-robin-calculator": { input: "3 picks, 2-leg × $10", output: "+$79.34", tone: "positive" },
+  "teaser-calculator": { input: "2 teams, −120", output: "73.9% per leg" },
   news: { input: "6 sports", output: "live alerts" },
   calendar: { input: "NBA · NFL · NHL · MLB", output: "+ 4 majors" },
   matches: { input: "Search by team", output: "live lookup" },
@@ -102,7 +104,7 @@ export default function Home() {
             <div className="mt-1 text-xs text-ink-dim">Real cash from a $100 bonus bet at +200</div>
           </div>
           <div>
-            <div className="font-mono text-2xl font-semibold tabular-nums text-accent">136</div>
+            <div className="font-mono text-2xl font-semibold tabular-nums text-accent">145</div>
             <div className="mt-1 text-xs text-ink-dim">Automated tests behind every calculator</div>
           </div>
         </div>
