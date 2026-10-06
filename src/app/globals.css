@@ -9,13 +9,13 @@
   --line: #e3e6e9;
   --ink: #14171a;
   --ink-dim: #5b6470;
-  --accent: #c97a00;
+  --accent: #9d5c00;
   --accent-ink: #ffffff;
-  --accent-soft: rgba(201, 122, 0, 0.1);
-  --positive: #1e9e63;
-  --positive-soft: rgba(30, 158, 99, 0.1);
-  --negative: #d93a44;
-  --negative-soft: rgba(217, 58, 68, 0.1);
+  --accent-soft: rgba(157, 92, 0, 0.1);
+  --positive: #13734a;
+  --positive-soft: rgba(19, 115, 74, 0.1);
+  --negative: #c52f3a;
+  --negative-soft: rgba(197, 47, 58, 0.1);
 }
 
 /* Dark palette, system preference */

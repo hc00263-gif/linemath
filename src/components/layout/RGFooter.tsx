@@ -26,13 +26,13 @@ export function RGFooter() {
           actually settles — always verify with your book before betting. LineMath may earn a
           commission from sportsbook offers linked on this site.
         </p>
-        <nav aria-label="Footer" className="flex flex-wrap gap-x-4 gap-y-1">
-          <Link href="/about" className="underline underline-offset-2">About &amp; methodology</Link>
-          <Link href="/guides" className="underline underline-offset-2">Guides</Link>
-          <Link href="/responsible-gambling" className="underline underline-offset-2">Responsible gambling</Link>
-          <Link href="/advertising-disclosure" className="underline underline-offset-2">Advertising disclosure</Link>
-          <Link href="/terms" className="underline underline-offset-2">Terms</Link>
-          <Link href="/privacy" className="underline underline-offset-2">Privacy</Link>
+        <nav aria-label="Footer" className="flex flex-wrap gap-x-4">
+          <Link href="/about" className="inline-block py-1 underline underline-offset-2">About &amp; methodology</Link>
+          <Link href="/guides" className="inline-block py-1 underline underline-offset-2">Guides</Link>
+          <Link href="/responsible-gambling" className="inline-block py-1 underline underline-offset-2">Responsible gambling</Link>
+          <Link href="/advertising-disclosure" className="inline-block py-1 underline underline-offset-2">Advertising disclosure</Link>
+          <Link href="/terms" className="inline-block py-1 underline underline-offset-2">Terms</Link>
+          <Link href="/privacy" className="inline-block py-1 underline underline-offset-2">Privacy</Link>
         </nav>
         <p>© {new Date().getFullYear()} LineMath.</p>
       </div>
