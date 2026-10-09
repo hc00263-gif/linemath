@@ -6,6 +6,8 @@ import { arbStakes } from "@/lib/odds/arbitrage";
 import { formatCurrency, formatImplied } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
 import { parsePositive, tryParseOdds } from "@/lib/odds/tryParse";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { StakeInput } from "@/components/ui/StakeInput";
@@ -16,9 +18,10 @@ const LABELS = ["Outcome A (book 1)", "Outcome B (book 2)", "Outcome C (draw, bo
 
 export function ArbitrageCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [stakeValue, setStakeValue] = useState("1000");
-  const [values, setValues] = useState(["105", "-102", "+250"]);
-  const [threeWay, setThreeWay] = useState(false);
+  const initial = useInitialInputs();
+  const [stakeValue, setStakeValue] = useState(() => initial("stake", "1000"));
+  const [values, setValues] = useState(() => [initial("a", "105"), initial("b", "-102"), initial("c", "+250")]);
+  const [threeWay, setThreeWay] = useState(() => initial("way3", "0") === "1");
 
   function handleFormatChange(next: OddsFormat) {
     setValues((prev) => prev.map((v) => retextOdds(v, format, next)));
@@ -69,6 +72,7 @@ export function ArbitrageCalculator() {
         ]}
         note="Guaranteed profit before limits, line movement, and bet cancellation risk. Under 100% combined implied probability means an arbitrage exists."
       />
+      <ShareButton params={{ stake: stakeValue, a: values[0], b: values[1], c: values[2], way3: threeWay ? "1" : "0", fmt: format }} />
     </div>
   );
 }

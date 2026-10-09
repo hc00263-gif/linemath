@@ -13,8 +13,8 @@ function NavGroup({ label, items }: { label: string; items: { slug: string; shor
       >
         {label} <span aria-hidden="true">▾</span>
       </button>
-      <div className="invisible absolute top-full left-0 z-30 pt-1 opacity-0 transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-        <ul className="grid min-w-56 gap-0.5 rounded-xl border border-line bg-surface p-2 shadow-lg">
+      <div className="invisible absolute top-full z-30 pt-1 opacity-0 transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100 sm:right-0 max-sm:fixed max-sm:inset-x-4 max-sm:top-auto">
+        <ul className="grid max-h-[70vh] gap-0.5 overflow-y-auto rounded-xl border border-line bg-surface p-2 shadow-lg sm:min-w-[26rem] sm:grid-cols-2">
           {items.map((item) => (
             <li key={item.slug}>
               <Link href={`/${item.slug}`} className="block rounded-md px-3 py-2 text-sm text-ink-dim transition-colors hover:bg-fill hover:text-ink">
@@ -38,6 +38,9 @@ export function Header() {
         <nav aria-label="Site" className="flex flex-wrap items-center gap-x-1 text-sm">
           <NavGroup label="Calculators" items={CALCULATORS} />
           <NavGroup label="Sports" items={SPORTS_TOOLS} />
+          <Link href="/odds" className="rounded-md px-2.5 py-1.5 text-ink-dim transition-colors hover:bg-fill hover:text-ink">
+            Odds
+          </Link>
           <Link href="/guides" className="rounded-md px-2.5 py-1.5 text-ink-dim transition-colors hover:bg-fill hover:text-ink">
             Guides
           </Link>

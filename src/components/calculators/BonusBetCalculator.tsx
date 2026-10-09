@@ -5,6 +5,8 @@ import { Odds, OddsFormat, parseOdds } from "@/lib/odds/convert";
 import { bonusBetConversion } from "@/lib/odds/bonusbet";
 import { formatCurrency, formatImplied } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { StakeInput } from "@/components/ui/StakeInput";
@@ -22,9 +24,10 @@ function tryParseOdds(value: string, format: Parameters<typeof parseOdds>[1]): O
 
 export function BonusBetCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [bonusValue, setBonusValue] = useState("100");
-  const [bonusOddsValue, setBonusOddsValue] = useState("200");
-  const [hedgeOddsValue, setHedgeOddsValue] = useState("-220");
+  const initial = useInitialInputs();
+  const [bonusValue, setBonusValue] = useState(() => initial("bonus", "100"));
+  const [bonusOddsValue, setBonusOddsValue] = useState(() => initial("odds", "200"));
+  const [hedgeOddsValue, setHedgeOddsValue] = useState(() => initial("hedge", "-220"));
 
   function handleFormatChange(next: OddsFormat) {
     setBonusOddsValue((prev) => retextOdds(prev, format, next));
@@ -69,6 +72,7 @@ export function BonusBetCalculator() {
         ]}
         note="Free bets don't return the stake if they win — this accounts for that."
       />
+      <ShareButton params={{ bonus: bonusValue, odds: bonusOddsValue, hedge: hedgeOddsValue, fmt: format }} />
     </div>
   );
 }

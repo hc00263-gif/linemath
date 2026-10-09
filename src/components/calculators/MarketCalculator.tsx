@@ -7,6 +7,8 @@ import { holdPercent } from "@/lib/odds/vig";
 import { formatAmerican, formatImplied } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
 import { tryParseOdds } from "@/lib/odds/tryParse";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { ResultCard } from "@/components/ui/ResultCard";
@@ -17,8 +19,9 @@ const LABELS = ["Outcome A", "Outcome B", "Outcome C (draw)"];
 /** Shared by the vig calculator (primary = book margin) and the no-vig calculator (primary = fair odds). */
 export function MarketCalculator({ mode }: { mode: "vig" | "novig" }) {
   const [format, setFormat] = useOddsFormat();
-  const [values, setValues] = useState(["-110", "-110", "+250"]);
-  const [threeWay, setThreeWay] = useState(false);
+  const initial = useInitialInputs();
+  const [values, setValues] = useState(() => [initial("a", "-110"), initial("b", "-110"), initial("c", "+250")]);
+  const [threeWay, setThreeWay] = useState(() => initial("way3", "0") === "1");
 
   function handleFormatChange(next: OddsFormat) {
     setValues((prev) => prev.map((v) => retextOdds(v, format, next)));
@@ -79,6 +82,7 @@ export function MarketCalculator({ mode }: { mode: "vig" | "novig" }) {
           note="Proportional (multiplicative) de-vig: each implied probability is scaled so the market sums to exactly 100%."
         />
       )}
+      <ShareButton params={{ a: values[0], b: values[1], c: values[2], way3: threeWay ? "1" : "0", fmt: format }} />
     </div>
   );
 }

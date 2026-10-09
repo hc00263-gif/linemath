@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Odds, OddsFormat, parseOdds } from "@/lib/odds/convert";
 import { formatCurrency, formatImplied } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { StakeInput } from "@/components/ui/StakeInput";
@@ -12,8 +14,9 @@ import { useOddsFormat } from "@/hooks/useOddsFormat";
 
 export function SingleBetCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [oddsValue, setOddsValue] = useState("-110");
-  const [stakeValue, setStakeValue] = useState("100");
+  const initial = useInitialInputs();
+  const [oddsValue, setOddsValue] = useState(() => initial("odds", "-110"));
+  const [stakeValue, setStakeValue] = useState(() => initial("stake", "100"));
 
   function handleFormatChange(next: OddsFormat) {
     setOddsValue((prev) => retextOdds(prev, format, next));
@@ -54,6 +57,7 @@ export function SingleBetCalculator() {
           { label: "Implied Probability", value: odds ? formatImplied(odds.implied) : "—" },
         ]}
       />
+      <ShareButton params={{ odds: oddsValue, stake: stakeValue, fmt: format }} />
     </div>
   );
 }

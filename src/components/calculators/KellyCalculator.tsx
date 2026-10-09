@@ -6,6 +6,8 @@ import { KellyMultiplier, kellyFraction } from "@/lib/odds/kelly";
 import { formatCurrency, formatImplied } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
 import { parsePercentFraction, parsePositive, tryParseOdds } from "@/lib/odds/tryParse";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { StakeInput } from "@/components/ui/StakeInput";
@@ -21,10 +23,14 @@ const MULTIPLIERS: { value: KellyMultiplier; label: string }[] = [
 
 export function KellyCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [bankrollValue, setBankrollValue] = useState("1000");
-  const [oddsValue, setOddsValue] = useState("150");
-  const [probValue, setProbValue] = useState("45");
-  const [multiplier, setMultiplier] = useState<KellyMultiplier>(0.5);
+  const initial = useInitialInputs();
+  const [bankrollValue, setBankrollValue] = useState(() => initial("bankroll", "1000"));
+  const [oddsValue, setOddsValue] = useState(() => initial("odds", "150"));
+  const [probValue, setProbValue] = useState(() => initial("p", "45"));
+  const [multiplier, setMultiplier] = useState<KellyMultiplier>(() => {
+    const k = Number(initial("k", "0.5"));
+    return k === 1 || k === 0.25 ? k : 0.5;
+  });
 
   function handleFormatChange(next: OddsFormat) {
     setOddsValue((prev) => retextOdds(prev, format, next));
@@ -76,6 +82,7 @@ export function KellyCalculator() {
             : "Kelly sizing assumes your win probability is right. Most bettors use half or quarter Kelly because their estimates are noisy."
         }
       />
+      <ShareButton params={{ bankroll: bankrollValue, odds: oddsValue, p: probValue, k: String(multiplier), fmt: format }} />
     </div>
   );
 }

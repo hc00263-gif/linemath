@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 import { getTeamPicks } from "@/lib/fantasy/draft";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { StatField } from "@/components/ui/StatField";
 
 export function DraftPickCalculator() {
-  const [teamsValue, setTeamsValue] = useState("12");
-  const [roundsValue, setRoundsValue] = useState("15");
-  const [slotValue, setSlotValue] = useState("1");
-  const [thirdRoundReversal, setThirdRoundReversal] = useState(false);
+  const initial = useInitialInputs();
+  const [teamsValue, setTeamsValue] = useState(() => initial("teams", "12"));
+  const [roundsValue, setRoundsValue] = useState(() => initial("rounds", "15"));
+  const [slotValue, setSlotValue] = useState(() => initial("slot", "1"));
+  const [thirdRoundReversal, setThirdRoundReversal] = useState(() => initial("rr", "0") === "1");
 
   const teams = Number(teamsValue);
   const rounds = Number(roundsValue);
@@ -58,6 +61,7 @@ export function DraftPickCalculator() {
           </div>
         </div>
       )}
+      <ShareButton params={{ teams: teamsValue, rounds: roundsValue, slot: slotValue, rr: thirdRoundReversal ? "1" : "0" }} />
     </div>
   );
 }

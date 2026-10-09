@@ -8,6 +8,8 @@ import {
   StatLine,
   calculateFantasyPoints,
 } from "@/lib/fantasy/points";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { StatField } from "@/components/ui/StatField";
 import { ResultCard } from "@/components/ui/ResultCard";
 
@@ -38,9 +40,13 @@ function toNonNegativeNumber(value: string): number {
 }
 
 export function FantasyPointsCalculator() {
-  const [preset, setPreset] = useState<Preset>("ppr");
+  const initial = useInitialInputs();
+  const [preset, setPreset] = useState<Preset>(() => {
+    const p = initial("scoring", "ppr");
+    return p === "standard" || p === "half-ppr" ? p : "ppr";
+  });
   const [values, setValues] = useState<Record<keyof StatLine, string>>(
-    () => Object.fromEntries(STAT_LINE_FIELDS.map((field) => [field, ""])) as Record<keyof StatLine, string>
+    () => Object.fromEntries(STAT_LINE_FIELDS.map((field) => [field, initial(field, "")])) as Record<keyof StatLine, string>
   );
 
   const stats: StatLine = useMemo(() => {
@@ -86,6 +92,7 @@ export function FantasyPointsCalculator() {
       </div>
 
       <ResultCard primary={{ label: "Fantasy Points", value: points.toFixed(2) }} />
+      <ShareButton params={{ scoring: preset, ...values }} />
     </div>
   );
 }

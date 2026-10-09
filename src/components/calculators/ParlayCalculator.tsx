@@ -5,6 +5,8 @@ import { OddsFormat, oddsFromAmerican, parseOdds } from "@/lib/odds/convert";
 import { ParlayLeg, parlayPayout } from "@/lib/odds/parlay";
 import { formatAmerican, formatCurrency } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { StakeInput } from "@/components/ui/StakeInput";
@@ -22,12 +24,15 @@ interface LegState {
 
 export function ParlayCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [stakeValue, setStakeValue] = useState("100");
-  const nextId = useRef(2);
-  const [legs, setLegs] = useState<LegState[]>([
-    { id: 0, value: "-110", push: false },
-    { id: 1, value: "-110", push: false },
-  ]);
+  const initial = useInitialInputs();
+  const [stakeValue, setStakeValue] = useState(() => initial("stake", "100"));
+  const nextId = useRef(100);
+  const [legs, setLegs] = useState<LegState[]>(() => {
+    const values = initial("legs", "-110,-110").split(",").slice(0, MAX_LEGS);
+    const pushes = initial("push", "").split(",");
+    const safe = values.length >= MIN_LEGS ? values : ["-110", "-110"];
+    return safe.map((value, id) => ({ id, value, push: pushes[id] === "1" }));
+  });
 
   function addLeg() {
     if (legs.length >= MAX_LEGS) return;
@@ -147,6 +152,7 @@ export function ParlayCalculator() {
           ]}
         />
       )}
+      <ShareButton params={{ stake: stakeValue, legs: legs.map((l) => l.value).join(","), push: legs.map((l) => (l.push ? "1" : "0")).join(","), fmt: format }} />
     </div>
   );
 }

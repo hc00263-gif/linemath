@@ -6,6 +6,8 @@ import { roundRobin } from "@/lib/odds/roundrobin";
 import { formatCurrency } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
 import { parsePositive, tryParseOdds } from "@/lib/odds/tryParse";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { StakeInput } from "@/components/ui/StakeInput";
@@ -22,14 +24,18 @@ interface LegState {
 
 export function RoundRobinCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [stakeValue, setStakeValue] = useState("10");
-  const [size, setSize] = useState(2);
-  const nextId = useRef(3);
-  const [legs, setLegs] = useState<LegState[]>([
-    { id: 0, value: "-110" },
-    { id: 1, value: "-110" },
-    { id: 2, value: "-110" },
-  ]);
+  const initial = useInitialInputs();
+  const [stakeValue, setStakeValue] = useState(() => initial("stake", "10"));
+  const [size, setSize] = useState(() => {
+    const n = Number(initial("size", "2"));
+    return Number.isInteger(n) && n >= 2 ? n : 2;
+  });
+  const nextId = useRef(100);
+  const [legs, setLegs] = useState<LegState[]>(() => {
+    const values = initial("legs", "-110,-110,-110").split(",").slice(0, MAX_LEGS);
+    const safe = values.length >= MIN_LEGS ? values : ["-110", "-110", "-110"];
+    return safe.map((value, id) => ({ id, value }));
+  });
 
   function handleFormatChange(next: OddsFormat) {
     setLegs((prev) => prev.map((leg) => ({ ...leg, value: retextOdds(leg.value, format, next) })));
@@ -131,6 +137,7 @@ export function RoundRobinCalculator() {
         ]}
         note="Ranges show the best and worst result depending on which selections win. Informational only — verify payouts with your sportsbook."
       />
+      <ShareButton params={{ stake: stakeValue, size: String(effectiveSize), legs: legs.map((l) => l.value).join(","), fmt: format }} />
     </div>
   );
 }

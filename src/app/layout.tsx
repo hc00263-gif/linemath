@@ -1,8 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Big_Shoulders, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { RGFooter } from "@/components/layout/RGFooter";
 import { Analytics } from "@vercel/analytics/next";
 
 const plexSans = IBM_Plex_Sans({
@@ -28,6 +26,13 @@ const SITE_NAME = "LineMath";
 const SITE_TITLE = "LineMath — Free Sports Betting Calculators";
 const SITE_DESCRIPTION =
   "Fast, free, no-signup sports betting calculators for US bettors — odds converter, parlay, hedge, bonus bet, and more.";
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f9fa" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c0e11" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -87,9 +92,7 @@ export default function RootLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="flex min-h-full flex-col font-sans">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <RGFooter />
+        {children}
         <Analytics />
       </body>
     </html>

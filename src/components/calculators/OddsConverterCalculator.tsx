@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Odds, OddsFormat, parseOdds } from "@/lib/odds/convert";
 import { formatAmerican, formatDecimal, formatFractional, formatImplied } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { ResultCard } from "@/components/ui/ResultCard";
@@ -11,7 +13,8 @@ import { useOddsFormat } from "@/hooks/useOddsFormat";
 
 export function OddsConverterCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [value, setValue] = useState("-110");
+  const initial = useInitialInputs();
+  const [value, setValue] = useState(() => initial("odds", "-110"));
 
   function handleFormatChange(next: OddsFormat) {
     setValue((prev) => retextOdds(prev, format, next));
@@ -39,6 +42,7 @@ export function OddsConverterCalculator() {
           { label: "Implied Probability", value: odds ? formatImplied(odds.implied) : "—" },
         ]}
       />
+      <ShareButton params={{ odds: value, fmt: format }} />
     </div>
   );
 }

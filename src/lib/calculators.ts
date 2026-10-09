@@ -101,6 +101,48 @@ export const CALCULATORS: CalculatorMeta[] = [
     description: "Price a teaser from your book's odds and see the win rate each leg needs to break even.",
     related: ["parlay-calculator", "round-robin-calculator", "ev-calculator", "vig-calculator"],
   },
+  {
+    slug: "profit-boost-calculator",
+    title: "Profit Boost Calculator — Odds Boost Payout",
+    shortTitle: "Profit Boost Calculator",
+    description: "See what a sportsbook profit boost really pays, the effective odds, and the new break-even win rate.",
+    related: ["ev-calculator", "no-vig-calculator", "betting-odds-calculator", "bonus-bet-calculator"],
+  },
+  {
+    slug: "implied-probability-calculator",
+    title: "Implied Probability Calculator — Odds to Win %",
+    shortTitle: "Implied Probability",
+    description: "Turn any odds into the win probability they imply — or turn a probability into fair odds.",
+    related: ["odds-converter", "no-vig-calculator", "break-even-calculator", "vig-calculator"],
+  },
+  {
+    slug: "break-even-calculator",
+    title: "Break-Even Win Rate Calculator — Sports Betting",
+    shortTitle: "Break-Even Calculator",
+    description: "The win rate you need at any odds, plus profit and ROI for your actual record.",
+    related: ["implied-probability-calculator", "ev-calculator", "kelly-calculator", "vig-calculator"],
+  },
+  {
+    slug: "spread-to-moneyline-calculator",
+    title: "Spread to Moneyline Converter — NFL & NBA",
+    shortTitle: "Spread ↔ Moneyline",
+    description: "Estimate the fair moneyline for any NFL or NBA spread, or the spread behind a moneyline.",
+    related: ["no-vig-calculator", "implied-probability-calculator", "odds-converter", "ev-calculator"],
+  },
+  {
+    slug: "clv-calculator",
+    title: "CLV Calculator — Closing Line Value",
+    shortTitle: "CLV Calculator",
+    description: "Compare the price you got with the closing line to see if you are beating the market.",
+    related: ["ev-calculator", "no-vig-calculator", "kelly-calculator", "break-even-calculator"],
+  },
+  {
+    slug: "bet-tracker",
+    title: "Bet Tracker — Free Sports Betting Tracker & ROI",
+    shortTitle: "Bet Tracker",
+    description: "Log your bets locally and see profit, ROI, CLV, and results by sport, bet type, and odds range.",
+    related: ["clv-calculator", "break-even-calculator", "kelly-calculator", "ev-calculator"],
+  },
 ];
 
 export function getCalculator(slug: string): CalculatorMeta | undefined {

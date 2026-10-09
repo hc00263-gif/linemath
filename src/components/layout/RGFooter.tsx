@@ -29,6 +29,8 @@ export function RGFooter() {
         <nav aria-label="Footer" className="flex flex-wrap gap-x-4">
           <Link href="/about" className="inline-block py-1 underline underline-offset-2">About &amp; methodology</Link>
           <Link href="/guides" className="inline-block py-1 underline underline-offset-2">Guides</Link>
+          <Link href="/odds" className="inline-block py-1 underline underline-offset-2">Odds explained</Link>
+          <Link href="/embed" className="inline-block py-1 underline underline-offset-2">Embed a calculator</Link>
           <Link href="/responsible-gambling" className="inline-block py-1 underline underline-offset-2">Responsible gambling</Link>
           <Link href="/advertising-disclosure" className="inline-block py-1 underline underline-offset-2">Advertising disclosure</Link>
           <Link href="/terms" className="inline-block py-1 underline underline-offset-2">Terms</Link>

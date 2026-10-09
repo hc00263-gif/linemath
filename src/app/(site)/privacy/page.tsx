@@ -23,6 +23,12 @@ export default function PrivacyPage() {
           <strong className="text-ink">Breaking-news alerts (optional):</strong> if you turn them on, your browser&apos;s push subscription (an anonymous endpoint and keys supplied by your browser) is stored so we can send alerts. Turn alerts off on the News page to delete it.
         </li>
         <li>
+          <strong className="text-ink">Bet tracker (optional):</strong> bets you log are saved only in your browser&apos;s local storage on your device. They are never sent to LineMath, and clearing your browser data deletes them.
+        </li>
+        <li>
+          <strong className="text-ink">Shared links:</strong> the “Copy link” button puts your calculator inputs in the web address so you can share them. Anyone with the link can see those numbers, so don&apos;t share a link you wouldn&apos;t want others to read.
+        </li>
+        <li>
           <strong className="text-ink">Server logs:</strong> our host may keep standard request logs (such as IP address) for security and operations.
         </li>
       </UL>

@@ -6,6 +6,8 @@ import { teaserOdds } from "@/lib/odds/teaser";
 import { formatCurrency, formatImplied } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
 import { parsePositive, tryParseOdds } from "@/lib/odds/tryParse";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { StakeInput } from "@/components/ui/StakeInput";
@@ -16,9 +18,13 @@ const LEG_OPTIONS = [2, 3, 4, 5, 6];
 
 export function TeaserCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [stakeValue, setStakeValue] = useState("110");
-  const [oddsValue, setOddsValue] = useState("-120");
-  const [legCount, setLegCount] = useState(2);
+  const initial = useInitialInputs();
+  const [stakeValue, setStakeValue] = useState(() => initial("stake", "110"));
+  const [oddsValue, setOddsValue] = useState(() => initial("odds", "-120"));
+  const [legCount, setLegCount] = useState(() => {
+    const n = Number(initial("legs", "2"));
+    return n >= 2 && n <= 6 ? Math.round(n) : 2;
+  });
 
   function handleFormatChange(next: OddsFormat) {
     setOddsValue((prev) => retextOdds(prev, format, next));
@@ -62,6 +68,7 @@ export function TeaserCalculator() {
         ]}
         note="Teaser payouts differ by sportsbook, sport, and points bought — enter the odds your book shows for this exact teaser."
       />
+      <ShareButton params={{ stake: stakeValue, odds: oddsValue, legs: String(legCount), fmt: format }} />
     </div>
   );
 }

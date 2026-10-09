@@ -6,6 +6,8 @@ import { evCalc } from "@/lib/odds/ev";
 import { formatCurrency, formatImplied } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
 import { parsePercentFraction, parsePositive, tryParseOdds } from "@/lib/odds/tryParse";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { StakeInput } from "@/components/ui/StakeInput";
@@ -15,9 +17,10 @@ import { useOddsFormat } from "@/hooks/useOddsFormat";
 
 export function EvCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [stakeValue, setStakeValue] = useState("100");
-  const [oddsValue, setOddsValue] = useState("120");
-  const [probValue, setProbValue] = useState("50");
+  const initial = useInitialInputs();
+  const [stakeValue, setStakeValue] = useState(() => initial("stake", "100"));
+  const [oddsValue, setOddsValue] = useState(() => initial("odds", "120"));
+  const [probValue, setProbValue] = useState(() => initial("p", "50"));
 
   function handleFormatChange(next: OddsFormat) {
     setOddsValue((prev) => retextOdds(prev, format, next));
@@ -52,6 +55,7 @@ export function EvCalculator() {
         ]}
         note="Expected value is a long-run average, not a prediction for any single bet — and it's only as good as your probability estimate."
       />
+      <ShareButton params={{ stake: stakeValue, odds: oddsValue, p: probValue, fmt: format }} />
     </div>
   );
 }

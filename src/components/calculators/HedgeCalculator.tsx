@@ -5,6 +5,8 @@ import { Odds, OddsFormat, parseOdds } from "@/lib/odds/convert";
 import { hedgeStake } from "@/lib/odds/hedge";
 import { formatCurrency } from "@/lib/odds/format";
 import { retextOdds } from "@/lib/odds/reformat";
+import { ShareButton } from "@/components/ui/ShareButton";
+import { useInitialInputs } from "@/hooks/useInitialInputs";
 import { OddsFormatToggle } from "@/components/ui/OddsFormatToggle";
 import { OddsInput } from "@/components/ui/OddsInput";
 import { StakeInput } from "@/components/ui/StakeInput";
@@ -22,9 +24,10 @@ function tryParseOdds(value: string, format: Parameters<typeof parseOdds>[1]): O
 
 export function HedgeCalculator() {
   const [format, setFormat] = useOddsFormat();
-  const [stakeValue, setStakeValue] = useState("100");
-  const [originalOddsValue, setOriginalOddsValue] = useState("300");
-  const [hedgeOddsValue, setHedgeOddsValue] = useState("-150");
+  const initial = useInitialInputs();
+  const [stakeValue, setStakeValue] = useState(() => initial("stake", "100"));
+  const [originalOddsValue, setOriginalOddsValue] = useState(() => initial("odds", "300"));
+  const [hedgeOddsValue, setHedgeOddsValue] = useState(() => initial("hedge", "-150"));
 
   function handleFormatChange(next: OddsFormat) {
     setOriginalOddsValue((prev) => retextOdds(prev, format, next));
@@ -65,6 +68,7 @@ export function HedgeCalculator() {
         ]}
         note="Guaranteed profit before limits, line movement, and bet cancellation risk."
       />
+      <ShareButton params={{ stake: stakeValue, odds: originalOddsValue, hedge: hedgeOddsValue, fmt: format }} />
     </div>
   );
 }
