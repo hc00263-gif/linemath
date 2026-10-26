@@ -105,6 +105,7 @@ export function ParlayCalculator() {
                 type="checkbox"
                 checked={leg.push}
                 onChange={(event) => updateLeg(leg.id, { push: event.target.checked })}
+                className="accent-accent"
               />
               Push
             </label>

@@ -40,6 +40,7 @@ export function DraftPickCalculator() {
           type="checkbox"
           checked={thirdRoundReversal}
           onChange={(event) => setThirdRoundReversal(event.target.checked)}
+          className="accent-accent"
         />
         3rd-round reversal (3RR)
       </label>

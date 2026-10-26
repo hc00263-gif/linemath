@@ -39,7 +39,7 @@ export function ArbitrageCalculator() {
       <div className="flex flex-wrap items-center gap-3">
         <OddsFormatToggle value={format} onChange={handleFormatChange} />
         <label className="flex items-center gap-2 text-sm text-ink-dim">
-          <input type="checkbox" checked={threeWay} onChange={(e) => setThreeWay(e.target.checked)} />
+          <input type="checkbox" checked={threeWay} onChange={(e) => setThreeWay(e.target.checked)} className="accent-accent" />
           Three-way market
         </label>
       </div>
