@@ -9,7 +9,7 @@ function NavGroup({ label, items }: { label: string; items: { slug: string; shor
       <button
         type="button"
         aria-haspopup="true"
-        className="rounded-md px-2.5 py-1.5 text-ink-dim transition-colors group-hover:bg-fill group-hover:text-ink group-focus-within:bg-fill group-focus-within:text-ink"
+        className="inline-flex min-h-11 items-center rounded-md px-2.5 py-1.5 text-ink-dim transition-colors group-hover:bg-fill group-hover:text-ink group-focus-within:bg-fill group-focus-within:text-ink"
       >
         {label} <span aria-hidden="true">▾</span>
       </button>
@@ -38,10 +38,10 @@ export function Header() {
         <nav aria-label="Site" className="flex flex-wrap items-center gap-x-1 text-sm">
           <NavGroup label="Calculators" items={CALCULATORS} />
           <NavGroup label="Sports" items={SPORTS_TOOLS} />
-          <Link href="/odds" className="rounded-md px-2.5 py-1.5 text-ink-dim transition-colors hover:bg-fill hover:text-ink">
+          <Link href="/odds" className="inline-flex min-h-11 items-center rounded-md px-2.5 py-1.5 text-ink-dim transition-colors hover:bg-fill hover:text-ink">
             Odds
           </Link>
-          <Link href="/guides" className="rounded-md px-2.5 py-1.5 text-ink-dim transition-colors hover:bg-fill hover:text-ink">
+          <Link href="/guides" className="inline-flex min-h-11 items-center rounded-md px-2.5 py-1.5 text-ink-dim transition-colors hover:bg-fill hover:text-ink">
             Guides
           </Link>
         </nav>
