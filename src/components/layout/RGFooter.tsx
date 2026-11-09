@@ -36,7 +36,10 @@ export function RGFooter() {
           <Link href="/terms" className="inline-block py-1 underline underline-offset-2">Terms</Link>
           <Link href="/privacy" className="inline-block py-1 underline underline-offset-2">Privacy</Link>
         </nav>
-        <p>© {new Date().getFullYear()} LineMath.</p>
+        <p>
+          © {new Date().getFullYear()} LineMath. Website by{" "}
+          <a href="https://cineartful.com" className="underline underline-offset-2">CineArtful</a>.
+        </p>
       </div>
     </footer>
   );
