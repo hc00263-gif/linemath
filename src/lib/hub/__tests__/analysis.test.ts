@@ -17,6 +17,21 @@ const game = (markets: HubGame["markets"]): HubGame => ({
   vig: {},
 });
 
+describe("exchange and sanity filters", () => {
+  it("ignores exchange prices when looking for arbs", () => {
+    const g = game({
+      h2h: [side("Home FC", null, { betfair_ex_eu: 2.9, dk: 1.8 }), side("Away FC", null, { dk: 1.9, fd: 1.9 })],
+    });
+    expect(findArbs([g])).toEqual([]);
+  });
+
+  it("drops an arb whose leg is far above a well-covered market", () => {
+    const books = { a: 1.89, b: 1.9, c: 1.88, d: 1.9, odd: 2.12 };
+    const g = game({ totals: [side("Over", 6.5, books), side("Under", 6.5, { x: 2.0, y: 1.9 })] });
+    expect(findArbs([g])).toEqual([]);
+  });
+});
+
 describe("findArbs", () => {
   it("finds a two-way moneyline arb across different books and computes profit", () => {
     const g = game({ h2h: [side("Home FC", null, { dk: 2.2, fd: 1.9 }), side("Away FC", null, { dk: 1.7, fd: 2.2 })] });
