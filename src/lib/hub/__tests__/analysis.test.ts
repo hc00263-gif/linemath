@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { findArbs, findOutliers } from "../analysis";
+import { findArbs, findOutliers, pinnacleFairDecimal } from "../analysis";
 import { ageHours, isStale } from "../store";
 import type { HubGame, HubSide } from "../types";
 
@@ -106,5 +106,43 @@ describe("staleness", () => {
     expect(isStale("2026-11-09T12:00:00Z", now)).toBe(false);
     expect(isStale("2026-10-22T18:30:00Z", now)).toBe(true);
     expect(isStale("garbage", now)).toBe(true);
+  });
+});
+
+
+describe("Pinnacle fair price", () => {
+  it("removes the vig from a two-way market", () => {
+    const home = side("Home FC", null, { pinnacle: 1.8, dk: 1.85 });
+    const away = side("Away FC", null, { pinnacle: 2.1, dk: 2.0 });
+    const fair = pinnacleFairDecimal("h2h", home, [home, away]) as number;
+    const pHome = 1 / 1.8 / (1 / 1.8 + 1 / 2.1);
+    expect(fair).toBeCloseTo(1 / pHome, 6);
+    expect(1 / fair + 1 / (pinnacleFairDecimal("h2h", away, [home, away]) as number)).toBeCloseTo(1, 6);
+  });
+
+  it("returns null when Pinnacle does not price every outcome", () => {
+    const home = side("Home FC", null, { pinnacle: 1.8 });
+    const away = side("Away FC", null, { dk: 2.1 });
+    expect(pinnacleFairDecimal("h2h", home, [home, away])).toBeNull();
+  });
+
+  it("pairs a spread with its mirror line", () => {
+    const h = side("Home FC", -3.5, { pinnacle: 1.95 });
+    const a = side("Away FC", 3.5, { pinnacle: 1.95 });
+    expect(pinnacleFairDecimal("spreads", h, [h, a])).toBeCloseTo(2, 6);
+  });
+
+  it("tags outliers with edge vs Pinnacle and ranks Pinnacle-confirmed ones first", () => {
+    const g = game({
+      h2h: [
+        side("Home FC", null, { pinnacle: 1.8, a: 1.8, b: 1.78, c: 1.79, soft: 2.3 }),
+        side("Away FC", null, { pinnacle: 2.1, a: 2.1, b: 2.05, c: 2.08, d: 2.4 }),
+      ],
+    });
+    const out = findOutliers([g]);
+    const home = out.find((o) => o.selection === "Home FC")!;
+    expect(home.fairDecimal).not.toBeNull();
+    expect(home.evPercent).toBeGreaterThan(20);
+    expect(out[0].evPercent).toBeGreaterThan(0);
   });
 });

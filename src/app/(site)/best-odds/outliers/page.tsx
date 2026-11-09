@@ -30,8 +30,9 @@ export default async function OutliersPage() {
       <div className="flex flex-col gap-2">
         <h1 className="font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">Outlier Lines</h1>
         <p className="text-sm text-ink-dim">
-          Prices at least 6% better than the median of the other books on the same bet. A big gap can mean a soft book, an early move, or
-          a stale price that is about to be corrected.
+          Prices at least 6% better than the median of the other books on the same bet. Where Pinnacle, a sharp book, also prices the
+          market, the card shows the gap to its no-vig line, and prices that beat it are listed first. A big gap can mean a soft book, an
+          early move, or a stale price that is about to be corrected.
         </p>
       </div>
 
@@ -72,6 +73,17 @@ export default async function OutliersPage() {
               </div>
               <p className="mt-1.5 text-xs text-ink-dim">
                 Market median {formatPrice(o.marketMedian, "american")} across {o.bookCount} books.
+                {o.fairDecimal != null && o.evPercent != null ? (
+                  <>
+                    {" "}
+                    Pinnacle&apos;s no-vig price is {formatPrice(o.fairDecimal, "american")}, so this price is{" "}
+                    <span className={o.evPercent > 0 ? "font-semibold text-positive" : "font-semibold"}>
+                      {o.evPercent >= 0 ? "+" : ""}
+                      {o.evPercent.toFixed(1)}%
+                    </span>{" "}
+                    against the sharp line.
+                  </>
+                ) : null}
               </p>
             </li>
           ))}

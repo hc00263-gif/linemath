@@ -135,6 +135,41 @@ export interface OutlierLine {
   /** Best price vs the others' median, as a percent (positive = better for the bettor). */
   edgePercent: number;
   bookCount: number;
+  /** Pinnacle's no-vig price for this side (the sharp reference), or null when Pinnacle does not cover the market. */
+  fairDecimal: number | null;
+  /** Expected edge of the best price against Pinnacle's fair price, in percent. Null without a reference. */
+  evPercent: number | null;
+}
+
+/** The sharp book whose no-vig price is used as the reference "true" price. */
+export const SHARP_BOOK = "pinnacle";
+
+function bookPrice(side: HubSide, book: string): number | null {
+  const hit = Object.entries(side.books).find(([b]) => b.toLowerCase() === book);
+  return hit ? hit[1] : null;
+}
+
+/** Sides that make up one complete market at one line: moneyline together, over/under at one total, a spread and its mirror. */
+function outcomeGroup(market: string, side: HubSide, sides: HubSide[]): HubSide[] {
+  if (market === "h2h") return sides.filter((s) => s.point == null);
+  if (market === "totals") return sides.filter((s) => s.point === side.point);
+  if (market === "spreads" && side.point != null) {
+    return sides.filter((s) => s.point != null && Math.abs(s.point) === Math.abs(side.point as number));
+  }
+  return [];
+}
+
+/** Pinnacle's no-vig decimal price for `side`, or null when the whole market is not priced by Pinnacle. */
+export function pinnacleFairDecimal(market: string, side: HubSide, sides: HubSide[]): number | null {
+  const group = outcomeGroup(market, side, sides);
+  if (group.length < 2 || group.length > 3) return null;
+  if (market === "spreads" && group.length !== 2) return null;
+  const prices = group.map((g) => bookPrice(g, SHARP_BOOK));
+  if (prices.some((p) => p == null || !(p > 1))) return null;
+  const implied = (prices as number[]).map((p) => 1 / p);
+  const total = implied.reduce((a, b) => a + b, 0);
+  const mine = bookPrice(side, SHARP_BOOK) as number;
+  return total / (1 / mine);
 }
 
 function median(values: number[]): number {
@@ -162,7 +197,10 @@ export function findOutliers(rawGames: HubGame[], opts: { minBooks?: number; min
         const med = median(others);
         const edge = (side.best.decimal / med - 1) * 100;
         if (edge >= minEdge) {
+          const fair = side.best.book.toLowerCase() === SHARP_BOOK ? null : pinnacleFairDecimal(market, side, sides);
           out.push({
+            fairDecimal: fair,
+            evPercent: fair ? (side.best.decimal / fair - 1) * 100 : null,
             gameId: game.id,
             home: game.home,
             away: game.away,
@@ -179,5 +217,7 @@ export function findOutliers(rawGames: HubGame[], opts: { minBooks?: number; min
       }
     }
   }
-  return out.sort((a, b) => b.edgePercent - a.edgePercent);
+  // Prices that also beat Pinnacle's no-vig line are the interesting ones, so they lead; then biggest gap first.
+  const confirmed = (o: OutlierLine) => (o.evPercent != null && o.evPercent > 0 ? 1 : 0);
+  return out.sort((a, b) => confirmed(b) - confirmed(a) || b.edgePercent - a.edgePercent);
 }
