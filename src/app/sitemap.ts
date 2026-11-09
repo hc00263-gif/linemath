@@ -3,11 +3,12 @@ import { CALCULATORS } from "@/lib/calculators";
 import { GUIDES } from "@/lib/guides";
 import { ALL_ODDS, oddsToSlug } from "@/lib/oddsPages";
 import { SITE_URL } from "@/lib/seo";
+import { HUB_LEAGUES } from "@/lib/hub/leagues";
 
 type Entry = MetadataRoute.Sitemap[number];
 
 /** Sports pages backed by demo data are deliberately noindex and therefore left out (/calendar, /matches). */
-const SPORTS_INDEXABLE = ["/players", "/news"];
+const SPORTS_INDEXABLE = ["/players", "/news", "/best-odds", "/best-odds/arbs", "/best-odds/outliers"];
 const INFO_PAGES = ["/about", "/guides", "/odds", "/embed", "/responsible-gambling", "/advertising-disclosure", "/terms", "/privacy"];
 
 /**
@@ -21,7 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...CALCULATORS.map((c) => entry(`/${c.slug}`, { priority: 0.8 })),
     ...GUIDES.map((g) => entry(`/guides/${g.slug}`, { priority: 0.7 })),
     ...ALL_ODDS.map((o) => entry(`/odds/${oddsToSlug(o)}`, { priority: 0.5 })),
-    ...SPORTS_INDEXABLE.map((p) => (p === "/news" ? entry(p, { lastModified: new Date(), priority: 0.8 }) : entry(p, { priority: 0.5 }))),
+    ...SPORTS_INDEXABLE.map((p) =>
+      p === "/news" || p.startsWith("/best-odds")
+        ? entry(p, { lastModified: new Date(), priority: 0.8 })
+        : entry(p, { priority: 0.5 }),
+    ),
+    ...HUB_LEAGUES.map((l) => entry(`/best-odds/${l.slug}`, { lastModified: new Date(), priority: 0.7 })),
     ...INFO_PAGES.map((p) => entry(p, { priority: 0.4 })),
   ];
 }

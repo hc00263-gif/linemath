@@ -8,6 +8,12 @@ export interface SportsToolMeta {
 /** Single source of truth for sports-data tool routes/nav/homepage cards. */
 export const SPORTS_TOOLS: SportsToolMeta[] = [
   {
+    slug: "best-odds",
+    title: "Best Odds Today — Compare NFL, NBA & NHL Lines Across Sportsbooks",
+    shortTitle: "Best Odds",
+    description: "The best price on every side of every game across sportsbooks, plus an arbitrage finder and outlier lines.",
+  },
+  {
     slug: "calendar",
     title: "Sports Calendar — NBA, NFL, NHL, MLB & Tennis Majors",
     shortTitle: "Calendar",

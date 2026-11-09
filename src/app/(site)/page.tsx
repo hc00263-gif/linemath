@@ -34,6 +34,7 @@ const READOUTS: Record<string, { input: string; output: string; tone?: "positive
   "spread-to-moneyline-calculator": { input: "NFL -7", output: "≈ -231 fair" },
   "clv-calculator": { input: "+110 vs -110/-110", output: "+5.00% CLV", tone: "positive" },
   "bet-tracker": { input: "saved on your device", output: "ROI · CLV" },
+  "best-odds": { input: "NFL · NBA · NHL", output: "best price" },
   news: { input: "6 sports", output: "live alerts" },
   calendar: { input: "NBA · NFL · NHL · MLB", output: "+ 4 majors" },
   matches: { input: "Search by team", output: "live lookup" },
