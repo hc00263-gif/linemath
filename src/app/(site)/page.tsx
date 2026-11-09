@@ -4,6 +4,12 @@ import { Suspense } from "react";
 import { CALCULATORS } from "@/lib/calculators";
 import { SPORTS_TOOLS } from "@/lib/sportsTools";
 import { OddsConverterCalculator } from "@/components/calculators/OddsConverterCalculator";
+import { TodayGames } from "@/components/odds/TodayGames";
+import { getAllHubBoards, isHubConfigured } from "@/lib/hub/store";
+import { selectTodayGames } from "@/lib/hub/today";
+import { formatEt } from "@/lib/hub/format";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Free Sports Betting Calculators — American Odds Native",
@@ -41,8 +47,11 @@ const READOUTS: Record<string, { input: string; output: string; tone?: "positive
   players: { input: "NFL · Mahomes", output: "QB, KC" },
 };
 
-export default function Home() {
+export default async function Home() {
   const allTools = [...CALCULATORS, ...SPORTS_TOOLS];
+  const boards = isHubConfigured() ? await getAllHubBoards() : [];
+  const today = selectTodayGames(boards);
+  const newest = boards.map((b) => b.updated).sort().at(-1);
 
   return (
     <>
@@ -95,6 +104,22 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {today.length > 0 && (
+        <section id="today" className="border-b border-line">
+          <div className="mx-auto max-w-5xl px-4 py-12">
+            <div className="mb-6 max-w-[60ch]">
+              <div className="mb-2.5 font-mono text-xs tracking-wide text-ink-dim uppercase">Today&apos;s Board</div>
+              <h2 className="font-display text-4xl leading-none font-bold tracking-tight uppercase">Best price on every game.</h2>
+            </div>
+            <TodayGames leagues={today} updatedLabel={newest ? `prices as of ${formatEt(newest.endsWith("Z") ? newest : `${newest}Z`)}` : ""} />
+            <p className="mt-5 max-w-[70ch] text-xs leading-relaxed text-ink-dim">
+              Prices come from public odds feeds a few times a day, so lines move faster than this page updates. Confirm the price and limits
+              at the sportsbook before you bet. 21+. Informational only, not betting advice.
+            </p>
+          </div>
+        </section>
+      )}
 
       <section className="border-b border-line">
         <div className="mx-auto grid max-w-5xl grid-cols-2 gap-6 px-4 py-8 sm:grid-cols-4">
