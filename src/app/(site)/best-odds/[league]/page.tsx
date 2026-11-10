@@ -52,7 +52,14 @@ export default async function LeagueOddsPage({ params }: { params: Promise<{ lea
           <BestOddsBoard board={board} />
         </>
       ) : (
-        <NoData configured={isHubConfigured()} />
+        <>
+          <NoData configured={isHubConfigured()} />
+          {info.sport === "Soccer" && (
+            <p className="text-sm text-ink-dim">
+              Soccer boards fill in when matches are within a week, so they stay empty during international breaks.
+            </p>
+          )}
+        </>
       )}
 
       <PriceDisclaimer />

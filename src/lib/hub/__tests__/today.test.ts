@@ -54,3 +54,12 @@ describe("selectTodayGames", () => {
     expect(etDay(new Date("2026-11-10T03:30:00Z"))).toBe("2026-11-09");
   });
 });
+
+describe("league registry", () => {
+  it("includes the European soccer leagues after the US ones", async () => {
+    const { HUB_LEAGUES } = await import("../leagues");
+    const slugs = HUB_LEAGUES.map((l) => l.slug);
+    expect(slugs.slice(0, 5)).toEqual(["nfl", "nba", "nhl", "ncaaf", "ufc"]);
+    expect(slugs.slice(5)).toEqual(["epl", "laliga", "serie_a", "bundesliga", "ligue1", "champions_league"]);
+  });
+});

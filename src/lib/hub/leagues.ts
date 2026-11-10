@@ -5,6 +5,12 @@ export const HUB_LEAGUES = [
   { slug: "nhl", label: "NHL", sport: "Hockey" },
   { slug: "ncaaf", label: "College Football", sport: "Football" },
   { slug: "ufc", label: "UFC / MMA", sport: "MMA" },
+  { slug: "epl", label: "Premier League", sport: "Soccer" },
+  { slug: "laliga", label: "La Liga", sport: "Soccer" },
+  { slug: "serie_a", label: "Serie A", sport: "Soccer" },
+  { slug: "bundesliga", label: "Bundesliga", sport: "Soccer" },
+  { slug: "ligue1", label: "Ligue 1", sport: "Soccer" },
+  { slug: "champions_league", label: "Champions League", sport: "Soccer" },
 ] as const;
 
 export type HubLeagueSlug = (typeof HUB_LEAGUES)[number]["slug"];
